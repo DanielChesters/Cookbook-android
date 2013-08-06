@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -83,14 +84,6 @@ public class MainActivity extends ActionBarActivity {
         RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
 
 		listRecipes.setAdapter(recipeAdapter);
-        final Button buttonNewRecipe = (Button) findViewById(R.id.buttonNewRecipe);
-        buttonNewRecipe.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Log.wtf("test", "ceci est un test");
-			}
-		});
     }
 
 
@@ -100,5 +93,23 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_add:
+			Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
+			return true;
+
+		case R.id.action_settings:
+			Toast.makeText(getApplicationContext(), "Setting", Toast.LENGTH_SHORT).show();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+
 
 }

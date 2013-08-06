@@ -18,18 +18,8 @@
         android:id="@+id/listRecipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonNewRecipe"
         android:layout_below="@+id/Title" >
 
     </ListView>
-
-    <Button
-        android:id="@+id/buttonNewRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listRecipes"
-        android:layout_marginRight="91dp"
-        android:text="@string/new_recipe" />
 
 </RelativeLayout>
