@@ -3,8 +3,8 @@ package fr.oni.cookbook;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import fr.oni.cookbook.model.Recipe;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
