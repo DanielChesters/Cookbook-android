@@ -1,0 +1,104 @@
+package fr.oni.cookbook;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+import fr.oni.cookbook.model.Recipe;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
+
+        final List<Recipe> recipes = new ArrayList<Recipe>();
+
+        listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        	public void onItemClick(AdapterView<?> arg0, View view, int arg2,long itemID) {
+
+    	        String id = recipes.get(arg2).getTitle();
+    	        int position = (int) arg0.getSelectedItemId();
+    	        Toast.makeText(getApplicationContext(), "ListView Selected : "+id+" Position:"+position+" arg2:"+arg2+" arg3:"+itemID, Toast.LENGTH_LONG).show();
+
+    	    }
+		});
+
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+        recipes.add(new Recipe("Test 1"));
+        recipes.add(new Recipe("Test 2"));
+        recipes.add(new Recipe("Test 3"));
+
+
+        RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
+
+		listRecipes.setAdapter(recipeAdapter);
+        final Button buttonNewRecipe = (Button) findViewById(R.id.buttonNewRecipe);
+        buttonNewRecipe.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Log.wtf("test", "ceci est un test");
+			}
+		});
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+}

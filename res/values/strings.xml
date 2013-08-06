@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Cookbook</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome">Welcome to the cookbook!</string>
+    <string name="new_recipe">New Recipe</string>
+
+</resources>
