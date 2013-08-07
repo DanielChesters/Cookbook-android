@@ -11,5 +11,7 @@
     <string name="edit_description">Description</string>
 
     <string name="tab_name_recipe">Recipe</string>
+    <string name="tab_name_ingredients">Ingredients</string>
+    <string name="tab_name_steps">steps</string>
 
 </resources>

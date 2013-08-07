@@ -15,6 +15,7 @@ import android.view.Menu;
 
 public class EditActivity extends ActionBarActivity implements TabListener {
 
+	//TODO Maybe change List to Map
 	List<Fragment> fragList = new ArrayList<Fragment>();
 	Recipe recipe;
 
@@ -35,6 +36,14 @@ public class EditActivity extends ActionBarActivity implements TabListener {
         if (f == null) {
 			switch (tab.getPosition()) {
 				case 0:
+					f = new EditTitleFragment();
+					break;
+				case 1:
+					//TODO create the EditIngredientsFragment
+					f = new EditTitleFragment();
+					break;
+				case 2:
+					//TODO create the EditStepsFragment
 					f = new EditTitleFragment();
 					break;
 
@@ -73,8 +82,12 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		actionBar.setTitle(recipe.getTitle());
 
 		Tab tabRecipe = actionBar.newTab().setText(getString(R.string.tab_name_recipe)).setTabListener(this);
+		Tab tabIngredients = actionBar.newTab().setText(getString(R.string.tab_name_ingredients)).setTabListener(this);
+		Tab tabSteps = actionBar.newTab().setText(getString(R.string.tab_name_steps)).setTabListener(this);
 
 		actionBar.addTab(tabRecipe);
+		actionBar.addTab(tabIngredients);
+		actionBar.addTab(tabSteps);
 
 	}
 
