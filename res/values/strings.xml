@@ -10,4 +10,6 @@
     <string name="edit_title">Title</string>
     <string name="edit_description">Description</string>
 
+    <string name="tab_name_recipe">Recipe</string>
+
 </resources>

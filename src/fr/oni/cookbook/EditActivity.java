@@ -26,25 +26,25 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Fragment f = null;
-        EditTitleFragment ef = null;
-
-        if (fragList.size() > tab.getPosition())
-                fragList.get(tab.getPosition());
+		if (fragList.size() > tab.getPosition()) {
+			fragList.get(tab.getPosition());
+		}
+		Bundle data = new Bundle();
+		data.putSerializable("recipe", recipe);
 
         if (f == null) {
-            ef = new EditTitleFragment();
-            Bundle data = new Bundle();
+			switch (tab.getPosition()) {
+				case 0:
+					f = new EditTitleFragment();
+					break;
 
-            data.putSerializable("recipe", recipe);
-            ef.setArguments(data);
-            fragList.add(ef);
-        }
-        else {
-        	ef = (EditTitleFragment) f;
-        }
-
-
-        ft.replace(android.R.id.content, ef);
+				default:
+					break;
+			}
+			fragList.add(f);
+		}
+		f.setArguments(data);
+        ft.replace(android.R.id.content, f);
 
 	}
 
@@ -72,9 +72,10 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(recipe.getTitle());
 
-		Tab tabRecipe = actionBar.newTab().setText("Recipe").setTabListener(this);
+		Tab tabRecipe = actionBar.newTab().setText(getString(R.string.tab_name_recipe)).setTabListener(this);
 
 		actionBar.addTab(tabRecipe);
+
 	}
 
 }
