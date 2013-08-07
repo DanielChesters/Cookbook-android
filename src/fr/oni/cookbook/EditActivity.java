@@ -3,6 +3,7 @@ package fr.oni.cookbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.oni.cookbook.model.Recipe;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +16,7 @@ import android.view.Menu;
 public class EditActivity extends ActionBarActivity implements TabListener {
 
 	List<Fragment> fragList = new ArrayList<Fragment>();
+	Recipe recipe;
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -24,20 +26,21 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Fragment f = null;
-        EditFragment ef = null;
+        EditTitleFragment ef = null;
 
         if (fragList.size() > tab.getPosition())
                 fragList.get(tab.getPosition());
 
         if (f == null) {
-            ef = new EditFragment();
+            ef = new EditTitleFragment();
             Bundle data = new Bundle();
-            data.putInt("idx",  tab.getPosition());
+
+            data.putSerializable("recipe", recipe);
             ef.setArguments(data);
             fragList.add(ef);
         }
         else {
-        	ef = (EditFragment) f;
+        	ef = (EditTitleFragment) f;
         }
 
 
@@ -50,7 +53,6 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		 if (fragList.size() > tab.getPosition()) {
 	            ft.remove(fragList.get(tab.getPosition()));
 	        }
-
 	}
 
 	@Override
@@ -63,18 +65,16 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
+
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle("New Recipe");
+		actionBar.setTitle(recipe.getTitle());
 
 		Tab tabRecipe = actionBar.newTab().setText("Recipe").setTabListener(this);
-		Tab tabIngedients = actionBar.newTab().setText("Ingedients").setTabListener(this);
-		Tab tabSteps = actionBar.newTab().setText("Steps").setTabListener(this);
 
 		actionBar.addTab(tabRecipe);
-		actionBar.addTab(tabIngedients);
-		actionBar.addTab(tabSteps);
 	}
 
 }

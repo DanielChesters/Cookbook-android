@@ -112,6 +112,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private void addRecipe() {
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+		intent.putExtra("recipe", new Recipe("New Recipe"));
 		startActivity(intent);
 	}
 
