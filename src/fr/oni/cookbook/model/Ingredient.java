@@ -1,6 +1,10 @@
 package fr.oni.cookbook.model;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
+	private static final long serialVersionUID = -878175105293313375L;
+
 	private String name;
 	private String quantity;
 
