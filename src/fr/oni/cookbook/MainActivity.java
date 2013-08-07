@@ -3,6 +3,7 @@ package fr.oni.cookbook;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -97,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add:
-			Toast.makeText(getApplicationContext(), "Add", Toast.LENGTH_SHORT).show();
+			addRecipe();
 			return true;
 
 		case R.id.action_settings:
@@ -106,6 +107,12 @@ public class MainActivity extends ActionBarActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+
+	private void addRecipe() {
+		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+		startActivity(intent);
 	}
 
 
