@@ -30,7 +30,7 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		Fragment f = null;
 		if (fragList.size() > tab.getPosition()) {
-			fragList.get(tab.getPosition());
+			f = fragList.get(tab.getPosition());
 		}
 		Bundle data = new Bundle();
 		data.putSerializable("recipe", recipe);
