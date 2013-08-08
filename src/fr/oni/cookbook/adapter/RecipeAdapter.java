@@ -1,4 +1,4 @@
-package fr.oni.cookbook;
+package fr.oni.cookbook.adapter;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import fr.oni.cookbook.R;
 import fr.oni.cookbook.model.Recipe;
 
 public class RecipeAdapter extends BaseAdapter {

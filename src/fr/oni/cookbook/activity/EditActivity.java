@@ -1,9 +1,8 @@
-package fr.oni.cookbook;
+package fr.oni.cookbook.activity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.oni.cookbook.model.Recipe;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +11,9 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import fr.oni.cookbook.R;
+import fr.oni.cookbook.fragment.edit.EditTitleFragment;
+import fr.oni.cookbook.model.Recipe;
 
 public class EditActivity extends ActionBarActivity implements TabListener {
 

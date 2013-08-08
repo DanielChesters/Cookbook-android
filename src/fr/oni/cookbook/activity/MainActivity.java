@@ -1,4 +1,4 @@
-package fr.oni.cookbook;
+package fr.oni.cookbook.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import fr.oni.cookbook.R;
+import fr.oni.cookbook.adapter.RecipeAdapter;
 import fr.oni.cookbook.model.Recipe;
 
 public class MainActivity extends ActionBarActivity {

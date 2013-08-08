@@ -1,6 +1,5 @@
-package fr.oni.cookbook;
+package fr.oni.cookbook.fragment.edit;
 
-import fr.oni.cookbook.model.Recipe;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import fr.oni.cookbook.R;
+import fr.oni.cookbook.model.Recipe;
 
 public class EditTitleFragment extends Fragment {
 
