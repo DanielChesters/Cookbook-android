@@ -6,6 +6,8 @@
     <string name="welcome">Welcome to the cookbook!</string>
     <string name="action_new_recipe">New Recipe</string>
     <string name="action_save_recipe">Save</string>
+    <string name="action_edit_recipe">Edit</string>
+    <string name="action_delete_recipe">Delete</string>
 
     <string name="edit_title">Title</string>
     <string name="edit_description">Description</string>

@@ -28,13 +28,10 @@ public class MainActivity extends ActionBarActivity {
         final List<Recipe> recipes = new ArrayList<Recipe>();
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-        	public void onItemClick(AdapterView<?> arg0, View view, int arg2,long itemID) {
-
-    	        String id = recipes.get(arg2).getTitle();
-    	        int position = (int) arg0.getSelectedItemId();
-    	        Toast.makeText(getApplicationContext(), "ListView Selected : "+id+" Position:"+position+" arg2:"+arg2+" arg3:"+itemID, Toast.LENGTH_LONG).show();
-
+        	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
+        		Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
+        		intent.putExtra("recipe", recipes.get(id));
+        		startActivity(intent);
     	    }
 		});
 
