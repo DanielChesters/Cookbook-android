@@ -11,13 +11,13 @@ import android.widget.TextView;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.model.Recipe;
 
-public class RecipeAdapter extends BaseAdapter {
+public class MainRecipeAdapter extends BaseAdapter {
 
 	List<Recipe> recipes;
 
 	LayoutInflater inflater;
 
-	public RecipeAdapter(Context context, List<Recipe> recipes) {
+	public MainRecipeAdapter(Context context, List<Recipe> recipes) {
 		this.inflater = LayoutInflater.from(context);
 		this.recipes = recipes;
 	}

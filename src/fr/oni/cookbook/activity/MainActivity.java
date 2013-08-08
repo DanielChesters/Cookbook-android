@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import fr.oni.cookbook.R;
-import fr.oni.cookbook.adapter.RecipeAdapter;
+import fr.oni.cookbook.adapter.MainRecipeAdapter;
 import fr.oni.cookbook.model.Recipe;
 
 public class MainActivity extends ActionBarActivity {
@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
         recipes.add(new Recipe("Test 3"));
 
 
-        RecipeAdapter recipeAdapter = new RecipeAdapter(this, recipes);
+        MainRecipeAdapter recipeAdapter = new MainRecipeAdapter(this, recipes);
 
 		listRecipes.setAdapter(recipeAdapter);
     }
