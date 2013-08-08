@@ -39,7 +39,8 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/edit_title"
         android:layout_toRightOf="@id/edit_description"
-        android:inputType="text"
+        android:inputType="textMultiLine"
+        android:lines="5"
         android:padding="10dp" />
 
 </RelativeLayout>
