@@ -18,4 +18,9 @@ public class Step implements Serializable {
 	public Step(String order) {
 		this.order = order;
 	}
+
+	@Override
+	public String toString() {
+		return order;
+	}
 }

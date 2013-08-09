@@ -11,6 +11,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
+import fr.oni.cookbook.fragment.view.ViewStepsFragment;
 import fr.oni.cookbook.fragment.view.ViewTitleFragment;
 import fr.oni.cookbook.model.Recipe;
 
@@ -40,12 +41,10 @@ public class RecipeViewActivity extends ActionBarActivity implements
 					f = new ViewTitleFragment();
 					break;
 				case 1:
-					//TODO create the ViewIngredientsFragment
 					f = new ViewIngredientsFragment();
 					break;
 				case 2:
-					//TODO create the ViewStepsFragment
-					f = new ViewTitleFragment();
+					f = new ViewStepsFragment();
 					break;
 
 				default:
