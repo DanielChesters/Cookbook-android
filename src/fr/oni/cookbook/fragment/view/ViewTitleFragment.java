@@ -22,7 +22,7 @@ public class ViewTitleFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	        Bundle savedInstanceState) {
 
-	    View v = inflater.inflate(R.layout.view_recipe_title, null);
+	    View v = inflater.inflate(R.layout.view_recipe_title, container, false);
 
 	    TextView titleViewText = (TextView) v.findViewById(R.id.view_title_field);
 	    TextView descriptionViewText = (TextView) v.findViewById(R.id.view_description_field);

@@ -25,7 +25,7 @@ public class ViewIngredientsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ListView v = (ListView) inflater.inflate(R.layout.view_recipe_ingredients, null);
+		ListView v = (ListView) inflater.inflate(R.layout.view_recipe_ingredients, container, false);
 		v.setAdapter(new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_list_linear_layout, R.id.ingredient_text, recipe.getIngredients()));
 		return v;
 	}

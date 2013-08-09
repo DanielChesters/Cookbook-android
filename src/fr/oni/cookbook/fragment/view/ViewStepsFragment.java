@@ -25,7 +25,7 @@ public class ViewStepsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ListView v = (ListView) inflater.inflate(R.layout.view_recipe_steps, null);
+		ListView v = (ListView) inflater.inflate(R.layout.view_recipe_steps, container, false);
 		v.setAdapter(new ArrayAdapter<Step>(getActivity(), R.layout.steps_list_linear_layout, R.id.step_text, recipe.getSteps()));
 		return v;
 	}

@@ -1,67 +1,38 @@
 package fr.oni.cookbook.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
-import android.util.SparseArray;
 import android.view.Menu;
 import fr.oni.cookbook.R;
-import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
-import fr.oni.cookbook.fragment.view.ViewStepsFragment;
-import fr.oni.cookbook.fragment.view.ViewTitleFragment;
+import fr.oni.cookbook.adapter.RecipeViewPagerAdapter;
 import fr.oni.cookbook.model.Recipe;
 
 public class RecipeViewActivity extends ActionBarActivity implements
 		TabListener {
 
 	Recipe recipe;
-	SparseArray<Fragment> fragArray = new SparseArray<Fragment>();
+
+	ViewPager viewPager;
+	RecipeViewPagerAdapter recipeViewPagerAdapter;
 
 	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		// Do nothing
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		Fragment f = null;
-		if (fragArray.size() > tab.getPosition()) {
-			f = fragArray.get(tab.getPosition());
-		}
-		Bundle data = new Bundle();
-		data.putSerializable("recipe", recipe);
-
-        if (f == null) {
-			switch (tab.getPosition()) {
-				case 0:
-					f = new ViewTitleFragment();
-					break;
-				case 1:
-					f = new ViewIngredientsFragment();
-					break;
-				case 2:
-					f = new ViewStepsFragment();
-					break;
-
-				default:
-					break;
-			}
-			fragArray.put(tab.getPosition(), f);
-		}
-		f.setArguments(data);
-        ft.replace(android.R.id.content, f);
+		viewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		 if (fragArray.size() > tab.getPosition()) {
-	            ft.remove(fragArray.get(tab.getPosition()));
-		 }
-
+		// Do nothing
 	}
 
 	@Override
@@ -73,10 +44,34 @@ public class RecipeViewActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.view_activity);
+		final ActionBar actionBar = getSupportActionBar();
+		viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// do nothing
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// do nothing
+			}
+		});
 
 		recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
+		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe);
 
-		ActionBar actionBar = getSupportActionBar();
+		viewPager.setAdapter(recipeViewPagerAdapter);
+
+
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(recipe.getTitle());
@@ -88,7 +83,6 @@ public class RecipeViewActivity extends ActionBarActivity implements
 		actionBar.addTab(tabRecipe);
 		actionBar.addTab(tabIngredients);
 		actionBar.addTab(tabSteps);
-
 	}
 
 }
