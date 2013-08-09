@@ -20,4 +20,11 @@ public class Ingredient implements Serializable {
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
+	public Ingredient(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return name;
+	}
 }

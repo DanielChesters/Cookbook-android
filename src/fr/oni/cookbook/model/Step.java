@@ -14,4 +14,8 @@ public class Step implements Serializable {
 	public void setOrder(String order) {
 		this.order = order;
 	}
+
+	public Step(String order) {
+		this.order = order;
+	}
 }

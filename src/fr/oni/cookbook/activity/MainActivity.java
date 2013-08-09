@@ -14,7 +14,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
+import fr.oni.cookbook.model.Ingredient;
 import fr.oni.cookbook.model.Recipe;
+import fr.oni.cookbook.model.Step;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -25,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
 
         final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
 
-        final List<Recipe> recipes = new ArrayList<Recipe>();
+        final List<Recipe> recipes = getRecipes();
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
@@ -35,54 +37,33 @@ public class MainActivity extends ActionBarActivity {
     	    }
 		});
 
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-        recipes.add(new Recipe("Test 1"));
-        recipes.add(new Recipe("Test 2"));
-        recipes.add(new Recipe("Test 3"));
-
-
         MainRecipeAdapter recipeAdapter = new MainRecipeAdapter(this, recipes);
 
 		listRecipes.setAdapter(recipeAdapter);
     }
+
+
+	private List<Recipe> getRecipes() {
+		final List<Recipe> recipes = new ArrayList<Recipe>();
+		Recipe recipe = new Recipe("Long Test");
+		recipe.setDescription("This is a description");
+
+		for (int i = 0; i < 10; i++) {
+			recipe.getIngredients().add(new Ingredient("Ingredient " + i));
+		}
+
+		for (int i = 0; i < 10; i++) {
+			recipe.getSteps().add(new Step("Step " + i));
+		}
+
+		recipes.add(recipe);
+
+		for (int i = 0; i < 10; i++) {
+			recipes.add(new Recipe("Test " + + i));
+		}
+
+		return recipes;
+	}
 
 
     @Override
