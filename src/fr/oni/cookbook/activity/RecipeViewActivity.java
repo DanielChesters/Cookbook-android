@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.SparseArray;
 import android.view.Menu;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
 import fr.oni.cookbook.fragment.view.ViewTitleFragment;
 import fr.oni.cookbook.model.Recipe;
 
@@ -40,7 +41,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 					break;
 				case 1:
 					//TODO create the ViewIngredientsFragment
-					f = new ViewTitleFragment();
+					f = new ViewIngredientsFragment();
 					break;
 				case 2:
 					//TODO create the ViewStepsFragment
