@@ -82,6 +82,7 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(recipe.getTitle());
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		Tab tabRecipe = actionBar.newTab().setText(getString(R.string.tab_name_recipe)).setTabListener(this);
 		Tab tabIngredients = actionBar.newTab().setText(getString(R.string.tab_name_ingredients)).setTabListener(this);
