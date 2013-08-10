@@ -52,6 +52,8 @@ public class MainActivity extends ActionBarActivity {
 			recipe.getIngredients().add(new Ingredient("Ingredient " + i));
 		}
 
+		recipe.getSteps().add(new Step("Tm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7\nTm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7"));
+
 		for (int i = 0; i < 10; i++) {
 			recipe.getSteps().add(new Step("Step " + i));
 		}

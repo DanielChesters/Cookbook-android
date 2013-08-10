@@ -16,4 +16,7 @@
     <string name="tab_name_ingredients">Ingredients</string>
     <string name="tab_name_steps">steps</string>
 
+    <string name="step_view_title">Step</string>
+    <string name="step_view_ok">OK</string>
+
 </resources>
