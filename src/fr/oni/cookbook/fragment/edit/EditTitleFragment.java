@@ -1,7 +1,6 @@
 package fr.oni.cookbook.fragment.edit;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +11,7 @@ import android.widget.EditText;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.model.Recipe;
 
-public class EditTitleFragment extends Fragment {
+public class EditTitleFragment extends AbstactEditFragment {
 	EditText titleEditText;
 	EditText descriptionEditText;
 
@@ -63,10 +62,11 @@ public class EditTitleFragment extends Fragment {
 	}
 
 	@Override
-	public void onDestroy() {
+	public void onPause() {
 		recipe.setTitle(titleEditText.getText().toString());
 		recipe.setDescription(descriptionEditText.getText().toString());
-		super.onDestroy();
+		listener.onComplete(recipe);
+		super.onPause();
 	}
 
 

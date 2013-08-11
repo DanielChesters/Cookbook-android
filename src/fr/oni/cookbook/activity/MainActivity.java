@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,10 @@ import fr.oni.cookbook.model.Step;
 
 public class MainActivity extends ActionBarActivity {
 
+	static final int EDIT_RECIPE_REQUEST = 1;
+	List<Recipe> recipes;
+	MainRecipeAdapter recipeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,17 +32,18 @@ public class MainActivity extends ActionBarActivity {
 
         final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
 
-        final List<Recipe> recipes = getRecipes();
+        recipes = getRecipes();
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
         		Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
         		intent.putExtra("recipe", recipes.get(id));
-        		startActivity(intent);
+        		intent.putExtra("position", id);
+        		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
     	    }
 		});
 
-        MainRecipeAdapter recipeAdapter = new MainRecipeAdapter(this, recipes);
+        recipeAdapter = new MainRecipeAdapter(this, recipes);
 
 		listRecipes.setAdapter(recipeAdapter);
     }
@@ -95,9 +101,42 @@ public class MainActivity extends ActionBarActivity {
 	private void addRecipe() {
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
 		intent.putExtra("recipe", new Recipe("New Recipe"));
-		startActivity(intent);
+		intent.putExtra("position", -1);
+		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
 	}
 
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == EDIT_RECIPE_REQUEST){
+			Bundle extras = data.getExtras();
+			switch (resultCode) {
+				case RESULT_OK:
+					Log.d("EDIT", "OK");
+					Recipe recipe = (Recipe) extras.getSerializable("recipe");
+					int position = extras.getInt("position");
+					switch (position) {
+						case -1:
+							recipes.add(recipe);
+							break;
+
+						default:
+							recipes.set(position, recipe);
+							break;
+					}
+					recipeAdapter.notifyDataSetChanged();
+					break;
+				case RESULT_CANCELED:
+					Log.d("EDIT", "Cancel");
+					break;
+				case RESULT_FIRST_USER:
+					Log.d("EDIT", "???");
+					break;
+				default:
+					break;
+			}
+		}
+
+	}
 
 }

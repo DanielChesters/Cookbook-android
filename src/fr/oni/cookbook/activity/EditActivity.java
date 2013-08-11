@@ -1,25 +1,28 @@
 package fr.oni.cookbook.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 import fr.oni.cookbook.R;
-import fr.oni.cookbook.fragment.edit.EditTitleFragment;
+import fr.oni.cookbook.adapter.RecipeEditPagerAdapter;
+import fr.oni.cookbook.fragment.edit.AbstactEditFragment.OnCompleteListener;
 import fr.oni.cookbook.model.Recipe;
 
-public class EditActivity extends ActionBarActivity implements TabListener {
+public class EditActivity extends ActionBarActivity implements TabListener, OnCompleteListener {
 
-	//TODO Maybe change List to Map
-	List<Fragment> fragList = new ArrayList<Fragment>();
+	ViewPager viewPager;
+	RecipeEditPagerAdapter recipeEditPagerAdapter;
+
 	Recipe recipe;
+	private int position;
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -28,42 +31,13 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		Fragment f = null;
-		if (fragList.size() > tab.getPosition()) {
-			f = fragList.get(tab.getPosition());
-		}
-		Bundle data = new Bundle();
-		data.putSerializable("recipe", recipe);
-
-        if (f == null) {
-			switch (tab.getPosition()) {
-				case 0:
-					f = new EditTitleFragment();
-					break;
-				case 1:
-					//TODO create the EditIngredientsFragment
-					f = new EditTitleFragment();
-					break;
-				case 2:
-					//TODO create the EditStepsFragment
-					f = new EditTitleFragment();
-					break;
-
-				default:
-					break;
-			}
-			fragList.add(f);
-		}
-		f.setArguments(data);
-        ft.replace(android.R.id.content, f);
+		viewPager.setCurrentItem(tab.getPosition());
 
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		 if (fragList.size() > tab.getPosition()) {
-	            ft.remove(fragList.get(tab.getPosition()));
-	        }
+		// Do nothing
 	}
 
 	@Override
@@ -75,10 +49,36 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.edit_activity);
+		Bundle extras = getIntent().getExtras();
+		this.viewPager = (ViewPager) findViewById(R.id.edit_pager);
+		final ActionBar actionBar = getSupportActionBar();
 
-		recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-		ActionBar actionBar = getSupportActionBar();
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// do nothing
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// do nothing
+			}
+		});
+
+		recipe = (Recipe) extras.getSerializable("recipe");
+		recipeEditPagerAdapter = new RecipeEditPagerAdapter(getSupportFragmentManager(), recipe, position);
+
+		viewPager.setAdapter(recipeEditPagerAdapter);
+		position = extras.getInt("position");
+
+
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
 		actionBar.setTitle(recipe.getTitle());
@@ -92,6 +92,34 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		actionBar.addTab(tabIngredients);
 		actionBar.addTab(tabSteps);
 
+	}
+
+	private void onSave() {
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		extras.putSerializable("recipe", recipe);
+		extras.putInt("position", position);
+		setResult(RESULT_OK, intent);
+		Toast.makeText(this.getApplicationContext(), "Save", Toast.LENGTH_LONG).show();
+		finish();
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.action_save:
+				onSave();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+
+	}
+
+	@Override
+	public void onComplete(Recipe recipe) {
+		this.recipe = recipe;
 	}
 
 }
