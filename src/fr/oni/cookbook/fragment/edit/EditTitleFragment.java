@@ -13,8 +13,11 @@ import fr.oni.cookbook.R;
 import fr.oni.cookbook.model.Recipe;
 
 public class EditTitleFragment extends Fragment {
+	EditText titleEditText;
+	EditText descriptionEditText;
 
 	Recipe recipe;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -28,8 +31,8 @@ public class EditTitleFragment extends Fragment {
 
 	    View v = inflater.inflate(R.layout.edit_recipe_title, null);
 
-	    EditText titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
-	    EditText descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
+	    titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
+	    descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
 	    titleEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -57,6 +60,13 @@ public class EditTitleFragment extends Fragment {
 	    descriptionEditText.setText(recipe.getDescription());
 	    return v;
 
+	}
+
+	@Override
+	public void onDestroy() {
+		recipe.setTitle(titleEditText.getText().toString());
+		recipe.setDescription(descriptionEditText.getText().toString());
+		super.onDestroy();
 	}
 
 
