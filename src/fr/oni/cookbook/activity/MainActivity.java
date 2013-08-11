@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
+import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Ingredient;
 import fr.oni.cookbook.model.Recipe;
 import fr.oni.cookbook.model.Step;
@@ -22,28 +22,31 @@ import fr.oni.cookbook.model.Step;
 public class MainActivity extends ActionBarActivity {
 
 	static final int EDIT_RECIPE_REQUEST = 1;
-	List<Recipe> recipes;
+	Data data;
 	MainRecipeAdapter recipeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        data = (Data) getApplicationContext();
 
         final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
 
-        recipes = getRecipes();
+        if (data.getRecipes().isEmpty()){
+        	data.getRecipes().addAll(getRecipes());
+        }
+
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
         		Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
-        		intent.putExtra("recipe", recipes.get(id));
-        		intent.putExtra("position", id);
-        		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
+        		data.setPosition(id);
+        		startActivity(intent);
     	    }
 		});
 
-        recipeAdapter = new MainRecipeAdapter(this, recipes);
+        recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
 		listRecipes.setAdapter(recipeAdapter);
     }
@@ -99,44 +102,11 @@ public class MainActivity extends ActionBarActivity {
 
 
 	private void addRecipe() {
+		Recipe recipe = new Recipe("New Recipe");
+		data.getRecipes().add(recipe);
+		data.setPosition(data.getRecipes().indexOf(recipe));
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-		intent.putExtra("recipe", new Recipe("New Recipe"));
-		intent.putExtra("position", -1);
-		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
+		recipeAdapter.notifyDataSetChanged();
+		startActivity(intent);
 	}
-
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EDIT_RECIPE_REQUEST){
-			Bundle extras = data.getExtras();
-			switch (resultCode) {
-				case RESULT_OK:
-					Log.d("EDIT", "OK");
-					Recipe recipe = (Recipe) extras.getSerializable("recipe");
-					int position = extras.getInt("position");
-					switch (position) {
-						case -1:
-							recipes.add(recipe);
-							break;
-
-						default:
-							recipes.set(position, recipe);
-							break;
-					}
-					recipeAdapter.notifyDataSetChanged();
-					break;
-				case RESULT_CANCELED:
-					Log.d("EDIT", "Cancel");
-					break;
-				case RESULT_FIRST_USER:
-					Log.d("EDIT", "???");
-					break;
-				default:
-					break;
-			}
-		}
-
-	}
-
 }

@@ -10,12 +10,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.RecipeViewPagerAdapter;
+import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
 public class RecipeViewActivity extends ActionBarActivity implements
 		TabListener {
 
 	Recipe recipe;
+
+	Data data;
 
 	ViewPager viewPager;
 	RecipeViewPagerAdapter recipeViewPagerAdapter;
@@ -45,6 +48,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_activity);
+		data = (Data) getApplicationContext();
 		final ActionBar actionBar = getSupportActionBar();
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 
@@ -66,7 +70,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 			}
 		});
 
-		recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
+		recipe = data.getRecipes().get(data.getPosition());
 		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe);
 
 		viewPager.setAdapter(recipeViewPagerAdapter);

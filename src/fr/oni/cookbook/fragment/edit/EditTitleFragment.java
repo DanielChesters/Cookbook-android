@@ -1,6 +1,7 @@
 package fr.oni.cookbook.fragment.edit;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,19 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
-public class EditTitleFragment extends AbstactEditFragment {
+public class EditTitleFragment extends Fragment {
 	EditText titleEditText;
 	EditText descriptionEditText;
-
 	Recipe recipe;
+
+	Data data;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    Bundle data = getArguments();
-	    recipe = (Recipe) data.getSerializable("recipe");
+	    data = (Data) getActivity().getApplicationContext();
 	}
 
 	@Override
@@ -32,6 +34,8 @@ public class EditTitleFragment extends AbstactEditFragment {
 
 	    titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
 	    descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
+	    recipe = data.getRecipes().get(data.getPosition());
+
 	    titleEditText.addTextChangedListener(new TextWatcher() {
 
 			@Override
@@ -65,7 +69,7 @@ public class EditTitleFragment extends AbstactEditFragment {
 	public void onPause() {
 		recipe.setTitle(titleEditText.getText().toString());
 		recipe.setDescription(descriptionEditText.getText().toString());
-		listener.onComplete(recipe);
+		data.getRecipes().set(data.getPosition(), recipe);
 		super.onPause();
 	}
 

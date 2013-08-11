@@ -1,6 +1,5 @@
 package fr.oni.cookbook.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -10,19 +9,17 @@ import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.RecipeEditPagerAdapter;
-import fr.oni.cookbook.fragment.edit.AbstactEditFragment.OnCompleteListener;
+import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
-public class EditActivity extends ActionBarActivity implements TabListener, OnCompleteListener {
+public class EditActivity extends ActionBarActivity implements TabListener {
 
 	ViewPager viewPager;
 	RecipeEditPagerAdapter recipeEditPagerAdapter;
 
-	Recipe recipe;
-	private int position;
+	Data data;
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -50,7 +47,7 @@ public class EditActivity extends ActionBarActivity implements TabListener, OnCo
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_activity);
-		Bundle extras = getIntent().getExtras();
+		data = (Data) getApplicationContext();
 		this.viewPager = (ViewPager) findViewById(R.id.edit_pager);
 		final ActionBar actionBar = getSupportActionBar();
 
@@ -72,12 +69,12 @@ public class EditActivity extends ActionBarActivity implements TabListener, OnCo
 			}
 		});
 
-		recipe = (Recipe) extras.getSerializable("recipe");
+		int position = data.getPosition();
+		Recipe recipe = data.getRecipes().get(position);
+
 		recipeEditPagerAdapter = new RecipeEditPagerAdapter(getSupportFragmentManager(), recipe, position);
 
 		viewPager.setAdapter(recipeEditPagerAdapter);
-		position = extras.getInt("position");
-
 
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		actionBar.setDisplayShowTitleEnabled(true);
@@ -95,12 +92,6 @@ public class EditActivity extends ActionBarActivity implements TabListener, OnCo
 	}
 
 	private void onSave() {
-		Intent intent = getIntent();
-		Bundle extras = intent.getExtras();
-		extras.putSerializable("recipe", recipe);
-		extras.putInt("position", position);
-		setResult(RESULT_OK, intent);
-		Toast.makeText(this.getApplicationContext(), "Save", Toast.LENGTH_LONG).show();
 		finish();
 	}
 
@@ -116,10 +107,4 @@ public class EditActivity extends ActionBarActivity implements TabListener, OnCo
 		}
 
 	}
-
-	@Override
-	public void onComplete(Recipe recipe) {
-		this.recipe = recipe;
-	}
-
 }
