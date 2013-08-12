@@ -19,4 +19,9 @@
     <string name="step_view_title">Step</string>
     <string name="step_view_ok">OK</string>
 
+    <string name="delete_dialog_title">Delete recipe : </string>
+    <string name="delete_dialog_text">Are you sur to delete this recipe?</string>
+    <string name="delete_dialog_yes">Yes</string>
+    <string name="delete_dialog_no">No</string>
+
 </resources>

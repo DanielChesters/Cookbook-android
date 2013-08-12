@@ -1,5 +1,6 @@
 package fr.oni.cookbook.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -92,6 +93,9 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	}
 
 	private void onSave() {
+		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		setResult(RESULT_OK);
+		startActivity(intent);
 		finish();
 	}
 

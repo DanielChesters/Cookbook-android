@@ -1,5 +1,6 @@
 package fr.oni.cookbook.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -8,8 +9,10 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.RecipeViewPagerAdapter;
+import fr.oni.cookbook.dialog.view.DeleteRecipeConfirmDialogFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
@@ -89,5 +92,33 @@ public class RecipeViewActivity extends ActionBarActivity implements
 		actionBar.addTab(tabIngredients);
 		actionBar.addTab(tabSteps);
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_edit:
+			editRecipe();
+			return true;
+		case R.id.action_delete:
+			deleteRecipe();
+			return true;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void deleteRecipe() {
+		DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
+		dialog.show(getSupportFragmentManager(), "delete");
+	}
+
+	private void editRecipe() {
+		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+		startActivity(intent);
+	}
+
+
 
 }

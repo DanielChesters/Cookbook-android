@@ -22,6 +22,7 @@ import fr.oni.cookbook.model.Step;
 public class MainActivity extends ActionBarActivity {
 
 	static final int EDIT_RECIPE_REQUEST = 1;
+	static final int VIEW_RECIPE_REQUEST = 2;
 	Data data;
 	MainRecipeAdapter recipeAdapter;
 
@@ -42,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
         	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
         		Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
         		data.setPosition(id);
-        		startActivity(intent);
+        		startActivityForResult(intent, VIEW_RECIPE_REQUEST);
     	    }
 		});
 
@@ -106,7 +107,16 @@ public class MainActivity extends ActionBarActivity {
 		data.getRecipes().add(recipe);
 		data.setPosition(data.getRecipes().indexOf(recipe));
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-		recipeAdapter.notifyDataSetChanged();
-		startActivity(intent);
+
+		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
 	}
+
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		if (resultCode == RESULT_OK) {
+			recipeAdapter.notifyDataSetChanged();
+		}
+	}
+
 }
