@@ -30,7 +30,6 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		viewPager.setCurrentItem(tab.getPosition());
-
 	}
 
 	@Override
