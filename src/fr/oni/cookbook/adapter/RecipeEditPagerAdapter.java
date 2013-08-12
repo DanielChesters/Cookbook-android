@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
+import fr.oni.cookbook.fragment.edit.EditIngredientsFragment;
+import fr.oni.cookbook.fragment.edit.EditStepsFragment;
 import fr.oni.cookbook.fragment.edit.EditTitleFragment;
 import fr.oni.cookbook.model.Recipe;
 
@@ -19,8 +21,8 @@ public class RecipeEditPagerAdapter extends FragmentStatePagerAdapter {
 		this.recipe = recipe;
 		this.position = position;
 		fragArray.put(0, createFragment(EditTitleFragment.class));
-		fragArray.put(1, createFragment(EditTitleFragment.class));
-		fragArray.put(2, createFragment(EditTitleFragment.class));
+		fragArray.put(1, createFragment(EditIngredientsFragment.class));
+		fragArray.put(2, createFragment(EditStepsFragment.class));
 	}
 
 	@Override
