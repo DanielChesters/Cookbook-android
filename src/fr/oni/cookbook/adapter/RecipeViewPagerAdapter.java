@@ -1,5 +1,6 @@
 package fr.oni.cookbook.adapter;
 
+import fr.oni.cookbook.R;
 import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
 import fr.oni.cookbook.fragment.view.ViewStepsFragment;
 import fr.oni.cookbook.fragment.view.ViewTitleFragment;
@@ -14,10 +15,12 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
 	SparseArray<Fragment> fragArray = new SparseArray<Fragment>();
 	Recipe recipe;
+	String key;
 
-	public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe) {
+	public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String key) {
 		super(fm);
 		this.recipe = recipe;
+		this.key = key;
 		fragArray.put(0, createFragment(ViewTitleFragment.class));
 		fragArray.put(1, createFragment(ViewIngredientsFragment.class));
 		fragArray.put(2, createFragment(ViewStepsFragment.class));
@@ -37,7 +40,7 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
 		try {
 			Fragment f = clazz.newInstance();
 			Bundle data = new Bundle();
-			data.putSerializable("recipe", recipe);
+			data.putSerializable(key, recipe);
 			f.setArguments(data);
 			return f;
 		} catch (InstantiationException e) {

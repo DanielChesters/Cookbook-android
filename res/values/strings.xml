@@ -32,4 +32,5 @@
 
 	<string name="tag_delete">delete</string>
 	<string name="tag_step">step</string>
+	<string name="key_recipe">recipe</string>
 </resources>

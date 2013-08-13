@@ -19,7 +19,7 @@ public class ViewIngredientsFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle data = getArguments();
-	    recipe = (Recipe) data.getSerializable("recipe");
+	    recipe = (Recipe) data.getSerializable(getString(R.string.key_recipe));
 	}
 
 	@Override

@@ -74,7 +74,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 		});
 
 		recipe = data.getRecipes().get(data.getPosition());
-		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe);
+		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, getString(R.string.key_recipe));
 
 		viewPager.setAdapter(recipeViewPagerAdapter);
 
