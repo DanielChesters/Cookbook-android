@@ -49,7 +49,7 @@ public class EditIngredientsFragment extends Fragment {
 	}
 
 	private void addIngredient() {
-		data.getRecipes().get(data.getPosition()).getIngredients().add(new Ingredient("New Ingredient"));
+		data.getRecipes().get(data.getPosition()).getIngredients().add(new Ingredient(getString(R.string.new_ingredient)));
 		adapter.notifyDataSetChanged();
 	}
 

@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
 
 
 	private void addRecipe() {
-		Recipe recipe = new Recipe("New Recipe");
+		Recipe recipe = new Recipe(getString(R.string.new_recipe));
 		data.getRecipes().add(recipe);
 		data.setPosition(data.getRecipes().indexOf(recipe));
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);

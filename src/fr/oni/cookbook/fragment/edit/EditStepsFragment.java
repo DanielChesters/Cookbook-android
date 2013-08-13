@@ -64,7 +64,7 @@ public class EditStepsFragment extends Fragment {
 	}
 
 	private void addStep() {
-		data.getRecipes().get(data.getPosition()).getSteps().add(new Step("New Step"));
+		data.getRecipes().get(data.getPosition()).getSteps().add(new Step(getString(R.string.new_step)));
 		adapter.notifyDataSetChanged();
 	}
 

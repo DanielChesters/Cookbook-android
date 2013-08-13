@@ -37,7 +37,7 @@ public class ViewStepsFragment extends Fragment {
 				Bundle data = new Bundle();
 				data.putSerializable("step", (Step) adapter.getItemAtPosition(position));
 				dialog.setArguments(data);
-				dialog.show(getFragmentManager(), "step");
+				dialog.show(getFragmentManager(), getString(R.string.tag_step));
 			}
 		});
 		v.setAdapter(new ArrayAdapter<Step>(getActivity(), R.layout.steps_list_linear_layout, R.id.step_text, recipe.getSteps()));

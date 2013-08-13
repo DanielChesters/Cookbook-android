@@ -111,7 +111,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 
 	private void deleteRecipe() {
 		DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
-		dialog.show(getSupportFragmentManager(), "delete");
+		dialog.show(getSupportFragmentManager(), getString(R.string.tag_delete));
 	}
 
 	private void editRecipe() {
