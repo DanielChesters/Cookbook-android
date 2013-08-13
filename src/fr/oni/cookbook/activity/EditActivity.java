@@ -72,7 +72,7 @@ public class EditActivity extends ActionBarActivity implements TabListener {
 		int position = data.getPosition();
 		Recipe recipe = data.getRecipes().get(position);
 
-		recipeEditPagerAdapter = new RecipeEditPagerAdapter(getSupportFragmentManager(), recipe, position);
+		recipeEditPagerAdapter = new RecipeEditPagerAdapter(getSupportFragmentManager());
 
 		viewPager.setAdapter(recipeEditPagerAdapter);
 
