@@ -1,6 +1,7 @@
 package fr.oni.cookbook.fragment.edit;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -9,9 +10,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.dialog.edit.EditIngredientDialogFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Ingredient;
 
@@ -33,6 +36,18 @@ public class EditIngredientsFragment extends Fragment {
 		activity.supportInvalidateOptionsMenu();
 		ListView v = (ListView) inflater.inflate(R.layout.edit_recipe_ingredients, container, false);
 		adapter = new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_edit_list_linear_layout, R.id.ingredient_edit_text, data.getRecipes().get(data.getPosition()).getIngredients());
+		v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+				DialogFragment dialog = new EditIngredientDialogFragment();
+				Bundle data = new Bundle();
+				data.putInt(getString(R.string.key_position_ingredient), pos);
+				dialog.setArguments(data);
+				dialog.show(getFragmentManager(), getString(R.string.tag_edit_ingredient));
+			}
+
+		});
 		v.setAdapter(adapter);
 		return v;
 	}
