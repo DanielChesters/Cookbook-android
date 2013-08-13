@@ -24,6 +24,7 @@ public class EditIngredientsFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		data = (Data) getActivity().getApplicationContext();
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class EditIngredientsFragment extends Fragment {
 				addIngredient();
 				return true;
 			default:
-				return getActivity().onOptionsItemSelected(item);
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -54,10 +55,8 @@ public class EditIngredientsFragment extends Fragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		menu.clear();
-
-		MenuItem item = menu.getItem(R.id.action_add_ingredient);
+		MenuItem item = menu.findItem(R.id.action_add_ingredient);
 		item.setVisible(true);
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 }
