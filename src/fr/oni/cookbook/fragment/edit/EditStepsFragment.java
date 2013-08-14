@@ -14,11 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.dialog.edit.EditDialogListener;
+import fr.oni.cookbook.dialog.edit.EditStepDialogFragment;
 import fr.oni.cookbook.dialog.view.ViewStepDialogFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Step;
 
-public class EditStepsFragment extends Fragment {
+public class EditStepsFragment extends Fragment implements EditDialogListener {
 
 	Data data;
 	private ArrayAdapter<Step> adapter;
@@ -39,11 +41,12 @@ public class EditStepsFragment extends Fragment {
 		v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
-				DialogFragment dialog = new ViewStepDialogFragment();
+				EditStepDialogFragment dialog = new EditStepDialogFragment();
+				dialog.setListener(EditStepsFragment.this);
 				Bundle data = new Bundle();
-				data.putSerializable("step", (Step) adapter.getItemAtPosition(position));
+				data.putSerializable(getString(R.string.key_position_step), position);
 				dialog.setArguments(data);
-				dialog.show(getFragmentManager(), "step");
+				dialog.show(getFragmentManager(), getString(R.string.tag_edit_step));
 			}
 		});
 		adapter = new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout, R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
@@ -73,6 +76,11 @@ public class EditStepsFragment extends Fragment {
 		MenuItem item = menu.findItem(R.id.action_add_step);
 		item.setVisible(true);
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onCloseDialog() {
+		adapter.notifyDataSetChanged();
 	}
 
 }

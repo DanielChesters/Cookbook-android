@@ -26,7 +26,7 @@ public class EditIngredientDialogFragment extends DialogFragment {
 
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		View v = inflater.inflate(R.layout.edit_step_dialog_layout, null);
+		View v = inflater.inflate(R.layout.edit_ingredient_dialog_layout, null);
 		final int position = data.getPosition();
 		final Recipe recipe = data.getRecipes().get(position);
 
@@ -35,8 +35,8 @@ public class EditIngredientDialogFragment extends DialogFragment {
 		editText.setText(recipe.getIngredients().get(positionIngredient).getName());
 
 		builder.setView(v);
-		builder.setTitle(getString(R.string.step_edit_title));
-		builder.setPositiveButton(R.string.step_edit_ok, new DialogInterface.OnClickListener() {
+		builder.setTitle(getString(R.string.ingredient_edit_title));
+		builder.setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				recipe.getIngredients().get(positionIngredient).setName(editText.getText().toString());
@@ -44,7 +44,7 @@ public class EditIngredientDialogFragment extends DialogFragment {
 				EditIngredientDialogFragment.this.getDialog().dismiss();
 			}
 		});
-		builder.setNegativeButton(R.string.step_edit_cancel, new DialogInterface.OnClickListener(){
+		builder.setNegativeButton(R.string.edit_cancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				listener.onCloseDialog();

@@ -22,8 +22,9 @@
     <string name="step_view_ok">OK</string>
 
     <string name="step_edit_title">Edit Step</string>
-    <string name="step_edit_ok">OK</string>
-    <string name="step_edit_cancel">Cancel</string>
+    <string name="ingredient_edit_title">Edit Ingredient</string>
+    <string name="edit_ok">OK</string>
+    <string name="edit_cancel">Cancel</string>
 
     <string name="delete_dialog_title">Delete recipe : </string>
     <string name="delete_dialog_text">Are you sur to delete this recipe?</string>
@@ -36,8 +37,10 @@
 
 	<string name="tag_delete">delete</string>
 	<string name="tag_step">step</string>
-	<string name="tag_edit_ingredient">editIngredien</string>
+	<string name="tag_edit_ingredient">editIngredient</string>
+	<string name="tag_edit_step">editStep</string>
 	<string name="key_recipe">recipe</string>
 	<string name="key_position_ingredient">posIngredient</string>
+	<string name="key_position_step">posStep</string>
 
 </resources>
