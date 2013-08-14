@@ -9,14 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import fr.oni.cookbook.R;
-import fr.oni.cookbook.fragment.edit.EditIngredientsFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
 public class EditIngredientDialogFragment extends DialogFragment {
+
 	Data data;
 	EditText editText;
 	int positionIngredient;
+	EditDialogListener listener;
+
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -38,17 +40,24 @@ public class EditIngredientDialogFragment extends DialogFragment {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				recipe.getIngredients().get(positionIngredient).setName(editText.getText().toString());
+				listener.onCloseDialog();
 				EditIngredientDialogFragment.this.getDialog().dismiss();
 			}
 		});
 		builder.setNegativeButton(R.string.step_edit_cancel, new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				listener.onCloseDialog();
 				EditIngredientDialogFragment.this.getDialog().cancel();
 			}
 		});
 
 		return builder.create();
+	}
+
+
+	public void setListener(EditDialogListener listener) {
+		this.listener = listener;
 	}
 
 

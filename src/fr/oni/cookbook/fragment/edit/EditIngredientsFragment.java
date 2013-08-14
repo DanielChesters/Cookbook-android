@@ -1,7 +1,6 @@
 package fr.oni.cookbook.fragment.edit;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -14,11 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.dialog.edit.EditDialogListener;
 import fr.oni.cookbook.dialog.edit.EditIngredientDialogFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Ingredient;
 
-public class EditIngredientsFragment extends Fragment {
+public class EditIngredientsFragment extends Fragment implements EditDialogListener{
 
 	Data data;
 	ArrayAdapter<Ingredient> adapter;
@@ -40,7 +40,8 @@ public class EditIngredientsFragment extends Fragment {
 
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-				DialogFragment dialog = new EditIngredientDialogFragment();
+				EditIngredientDialogFragment dialog = new EditIngredientDialogFragment();
+				dialog.setListener(EditIngredientsFragment.this);
 				Bundle data = new Bundle();
 				data.putInt(getString(R.string.key_position_ingredient), pos);
 				dialog.setArguments(data);
@@ -73,5 +74,10 @@ public class EditIngredientsFragment extends Fragment {
 		MenuItem item = menu.findItem(R.id.action_add_ingredient);
 		item.setVisible(true);
 		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public void onCloseDialog() {
+		adapter.notifyDataSetChanged();
 	}
 }
