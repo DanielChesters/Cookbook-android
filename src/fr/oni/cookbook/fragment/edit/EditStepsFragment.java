@@ -1,7 +1,6 @@
 package fr.oni.cookbook.fragment.edit;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.ListView;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.dialog.edit.EditDialogListener;
 import fr.oni.cookbook.dialog.edit.EditStepDialogFragment;
-import fr.oni.cookbook.dialog.view.ViewStepDialogFragment;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Step;
 
