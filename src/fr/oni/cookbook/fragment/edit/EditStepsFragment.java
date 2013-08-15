@@ -1,5 +1,7 @@
 package fr.oni.cookbook.fragment.edit;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -45,6 +47,36 @@ public class EditStepsFragment extends Fragment implements EditDialogListener {
 				data.putSerializable(getString(R.string.key_position_step), position);
 				dialog.setArguments(data);
 				dialog.show(getFragmentManager(), getString(R.string.tag_edit_step));
+			}
+		});
+		v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+				builder.setTitle(R.string.delete_dialog_step_title);
+				builder.setMessage(R.string.delete_dialog_step_text);
+				builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						data.getRecipes().get(data.getPosition()).getSteps().remove(position);
+						adapter.notifyDataSetChanged();
+						dialog.dismiss();
+					}
+
+				});
+				builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+
+				});
+
+				builder.show();
+				return false;
 			}
 		});
 		adapter = new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout, R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());

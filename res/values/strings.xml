@@ -28,6 +28,8 @@
 
     <string name="delete_dialog_title">Delete recipe : </string>
     <string name="delete_dialog_text">Are you sur to delete this recipe?</string>
+    <string name="delete_dialog_step_title">Delete step</string>
+    <string name="delete_dialog_step_text">Are you sur to delete this step?</string>
     <string name="delete_dialog_yes">Yes</string>
     <string name="delete_dialog_no">No</string>
 
