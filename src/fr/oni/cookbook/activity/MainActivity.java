@@ -1,11 +1,23 @@
 package fr.oni.cookbook.activity;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,8 +45,13 @@ public class MainActivity extends ActionBarActivity {
 
         final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
 
-        if (data.getRecipes().isEmpty()){
-        	data.getRecipes().addAll(getRecipes());
+        if (data.getRecipes().isEmpty()) {
+        	String json = readFromFile();
+        	if (json.length() == 0) {
+        		data.getRecipes().addAll(getSamplesRecipes());
+        	} else {
+        		stringToData(json);
+        	}
         }
 
 
@@ -52,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-	private List<Recipe> getRecipes() {
+	private List<Recipe> getSamplesRecipes() {
 		final List<Recipe> recipes = new ArrayList<Recipe>();
 		Recipe recipe = new Recipe("Long Test");
 		recipe.setDescription("This is a description");
@@ -92,9 +109,18 @@ public class MainActivity extends ActionBarActivity {
 			addRecipe();
 			return true;
 
+		case R.id.action_save_recipes:
+			saveRecipes();
+			return true;
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+
+	private void saveRecipes() {
+		writeToFile(dataToString());
 	}
 
 
@@ -112,7 +138,63 @@ public class MainActivity extends ActionBarActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (resultCode == RESULT_OK) {
 			recipeAdapter.notifyDataSetChanged();
+			writeToFile(dataToString());
 		}
+	}
+
+
+	private String dataToString() {
+		Gson gson = new Gson();
+		return gson.toJson(data.getRecipes());
+	}
+
+	private void stringToData(String json) {
+		Gson gson = new Gson();
+		Type collectionType = new TypeToken<List<Recipe>>(){}.getType();
+		List<Recipe> recipes = gson.fromJson(json, collectionType);
+		data.setRecipes(recipes);
+	}
+
+	private void writeToFile(String data) {
+	    try {
+	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(getString(R.string.data_file), Context.MODE_PRIVATE));
+	        outputStreamWriter.write(data);
+	        outputStreamWriter.close();
+	    }
+	    catch (IOException e) {
+	        Log.e(getString(R.string.tag_data_write), getString(R.string.file_write_error) + e.toString());
+	    }
+	}
+
+
+	private String readFromFile() {
+
+	    String ret = "";
+
+	    try {
+	        InputStream inputStream = openFileInput(getString(R.string.data_file));
+
+	        if ( inputStream != null ) {
+	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+	            String receiveString = "";
+	            StringBuilder stringBuilder = new StringBuilder();
+
+	            while ( (receiveString = bufferedReader.readLine()) != null ) {
+	                stringBuilder.append(receiveString);
+	            }
+
+	            inputStream.close();
+	            ret = stringBuilder.toString();
+	        }
+	    }
+	    catch (FileNotFoundException e) {
+	        Log.e(getString(R.string.tag_data_read), getString(R.string.file_read_not_found) + e.toString());
+	    } catch (IOException e) {
+	        Log.e(getString(R.string.tag_data_read), getString(R.string.file_read_error) + e.toString());
+	    }
+
+	    return ret;
 	}
 
 }

@@ -19,6 +19,8 @@ import fr.oni.cookbook.model.Recipe;
 public class RecipeViewActivity extends ActionBarActivity implements
 		TabListener {
 
+	static final int EDIT_RECIPE_REQUEST = 1;
+
 	Recipe recipe;
 
 	Data data;
@@ -116,7 +118,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 
 	private void editRecipe() {
 		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
 	}
 
 

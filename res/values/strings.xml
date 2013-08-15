@@ -2,9 +2,11 @@
 <resources>
 
     <string name="app_name">Cookbook</string>
+    <string name="data_file">data.json</string>
     <string name="welcome">Welcome to the cookbook!</string>
     <string name="action_new_recipe">New Recipe</string>
     <string name="action_save_recipe">Save</string>
+    <string name="action_save_recipes">Save Recipes</string>
     <string name="action_edit_recipe">Edit</string>
     <string name="action_delete_recipe">Delete</string>
     <string name="action_add_ingredient">Add ingredient</string>
@@ -42,6 +44,12 @@
 	<string name="tag_step">step</string>
 	<string name="tag_edit_ingredient">editIngredient</string>
 	<string name="tag_edit_step">editStep</string>
+
+	<string name="tag_data_write">Data write</string>
+	<string name="file_write_error">File write failed: </string>
+	<string name="tag_data_read">Data read</string>
+	<string name="file_read_error">Can not read file: </string>
+	<string name="file_read_not_found">File not found: </string>
 	<string name="key_recipe">recipe</string>
 	<string name="key_position_ingredient">posIngredient</string>
 	<string name="key_position_step">posStep</string>

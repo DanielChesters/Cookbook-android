@@ -8,4 +8,11 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/action_new_recipe"
         />
+
+    <item
+        android:id="@+id/action_save_recipes"
+        cookbook:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/action_save_recipes"
+        />
 </menu>
