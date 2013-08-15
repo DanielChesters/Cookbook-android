@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
 import fr.oni.cookbook.model.Data;
@@ -93,9 +92,6 @@ public class MainActivity extends ActionBarActivity {
 			addRecipe();
 			return true;
 
-		case R.id.action_settings:
-			Toast.makeText(getApplicationContext(), "Setting", Toast.LENGTH_SHORT).show();
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

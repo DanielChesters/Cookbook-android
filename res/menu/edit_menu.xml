@@ -21,9 +21,4 @@
         android:icon="@android:drawable/ic_menu_save"
         android:title="@string/action_save_recipe"
         />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        cookbook:showAsAction="never"
-        android:title="@string/action_settings"/>
 </menu>

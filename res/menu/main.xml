@@ -8,10 +8,4 @@
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/action_new_recipe"
         />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        cookbook:showAsAction="never"
-        android:title="@string/action_settings"/>
-
 </menu>
