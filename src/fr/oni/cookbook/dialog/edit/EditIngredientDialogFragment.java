@@ -35,7 +35,7 @@ public class EditIngredientDialogFragment extends DialogFragment {
 		editText.setText(recipe.getIngredients().get(positionIngredient).getName());
 
 		builder.setView(v);
-		builder.setTitle(getString(R.string.ingredient_edit_title));
+		builder.setTitle(R.string.ingredient_edit_title);
 		builder.setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

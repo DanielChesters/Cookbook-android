@@ -18,8 +18,8 @@ public class DeleteRecipeConfirmDialogFragment extends DialogFragment {
 		final Data data = (Data) getActivity().getApplicationContext();
 		Recipe recipe = data.getRecipes().get(data.getPosition());
 		builder.setTitle(getString(R.string.delete_dialog_title) + recipe.getTitle());
-		builder.setMessage(getString(R.string.delete_dialog_text));
-		builder.setPositiveButton(getString(R.string.delete_dialog_yes), new DialogInterface.OnClickListener(){
+		builder.setMessage(R.string.delete_dialog_text);
+		builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -30,7 +30,7 @@ public class DeleteRecipeConfirmDialogFragment extends DialogFragment {
 			}
 
 		});
-		builder.setNegativeButton(getString(R.string.delete_dialog_no), new DialogInterface.OnClickListener(){
+		builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

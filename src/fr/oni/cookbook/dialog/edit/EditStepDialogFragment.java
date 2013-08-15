@@ -38,7 +38,7 @@ public class EditStepDialogFragment extends DialogFragment {
 		editText.setText(recipe.getSteps().get(positionStep).getOrder());
 
 		builder.setView(v);
-		builder.setTitle(getString(R.string.step_edit_title));
+		builder.setTitle(R.string.step_edit_title);
 		builder.setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

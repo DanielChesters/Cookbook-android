@@ -16,7 +16,7 @@ public class ViewStepDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		step = (Step) getArguments().get("step");
-		builder.setTitle(getString(R.string.step_view_title));
+		builder.setTitle(R.string.step_view_title);
 		builder.setMessage(step.getOrder());
 		builder.setPositiveButton(R.string.step_view_ok, new DialogInterface.OnClickListener() {
 
