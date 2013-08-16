@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.view.ViewStepDialogFragment;
 import fr.oni.cookbook.model.Recipe;
 import fr.oni.cookbook.model.Step;
@@ -22,7 +23,7 @@ public class ViewStepsFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle data = getArguments();
-	    recipe = (Recipe) data.getSerializable(getString(R.string.key_recipe));
+	    recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class ViewStepsFragment extends Fragment {
 				Bundle data = new Bundle();
 				data.putSerializable("step", (Step) adapter.getItemAtPosition(position));
 				dialog.setArguments(data);
-				dialog.show(getFragmentManager(), getString(R.string.tag_step));
+				dialog.show(getFragmentManager(), StringConstant.TAG_STEP);
 			}
 		});
 		v.setAdapter(new ArrayAdapter<Step>(getActivity(), R.layout.steps_list_linear_layout, R.id.step_text, recipe.getSteps()));

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
@@ -31,7 +32,7 @@ public class EditIngredientDialogFragment extends DialogFragment {
 		final Recipe recipe = data.getRecipes().get(position);
 
 		editText = (EditText) v.findViewById(R.id.edit_ingredient_field);
-		positionIngredient = getArguments().getInt(getString(R.string.key_position_ingredient));
+		positionIngredient = getArguments().getInt(StringConstant.KEY_POSITION_INGREDIENT);
 		editText.setText(recipe.getIngredients().get(positionIngredient).getName());
 
 		builder.setView(v);

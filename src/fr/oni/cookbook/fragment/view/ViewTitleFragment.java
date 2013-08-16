@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Recipe;
 
 public class ViewTitleFragment extends Fragment {
@@ -15,7 +16,7 @@ public class ViewTitleFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    Bundle data = getArguments();
-	    recipe = (Recipe) data.getSerializable(getString(R.string.key_recipe));
+	    recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
 	}
 
 	@Override

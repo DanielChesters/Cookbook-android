@@ -1,6 +1,7 @@
 package fr.oni.cookbook.dialog.edit;
 
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 import android.app.AlertDialog;
@@ -34,7 +35,7 @@ public class EditStepDialogFragment extends DialogFragment {
 		final Recipe recipe = data.getRecipes().get(position);
 
 		editText = (EditText) v.findViewById(R.id.edit_step_field);
-		positionStep = getArguments().getInt(getString(R.string.key_position_step));
+		positionStep = getArguments().getInt(StringConstant.KEY_POSITION_STEP);
 		editText.setText(recipe.getSteps().get(positionStep).getOrder());
 
 		builder.setView(v);

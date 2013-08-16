@@ -10,10 +10,10 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.adapter.RecipeViewPagerAdapter;
 import fr.oni.cookbook.dialog.view.DeleteRecipeConfirmDialogFragment;
 import fr.oni.cookbook.model.Data;
@@ -97,7 +97,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 		});
 
 		recipe = data.getRecipes().get(data.getPosition());
-		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, getString(R.string.key_recipe));
+		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, StringConstant.KEY_RECIPE);
 
 		viewPager.setAdapter(recipeViewPagerAdapter);
 
@@ -134,7 +134,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 
 	private void deleteRecipe() {
 		DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
-		dialog.show(getSupportFragmentManager(), getString(R.string.tag_delete));
+		dialog.show(getSupportFragmentManager(), StringConstant.TAG_DELETE);
 	}
 
 	private void editRecipe() {

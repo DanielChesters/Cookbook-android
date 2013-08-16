@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Ingredient;
@@ -159,12 +160,12 @@ public class MainActivity extends ActionBarActivity {
 
 	private void writeToFile(String data) {
 	    try {
-	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(getString(R.string.data_file), Context.MODE_PRIVATE));
+	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE));
 	        outputStreamWriter.write(data);
 	        outputStreamWriter.close();
 	    }
 	    catch (IOException e) {
-	        Log.e(getString(R.string.tag_data_write), getString(R.string.file_write_error) + e.toString());
+	        Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString());
 	    }
 	}
 
@@ -174,7 +175,7 @@ public class MainActivity extends ActionBarActivity {
 	    String ret = "";
 
 	    try {
-	        InputStream inputStream = openFileInput(getString(R.string.data_file));
+	        InputStream inputStream = openFileInput(StringConstant.DATA_FILE);
 
 	        if ( inputStream != null ) {
 	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -191,9 +192,9 @@ public class MainActivity extends ActionBarActivity {
 	        }
 	    }
 	    catch (FileNotFoundException e) {
-	        Log.e(getString(R.string.tag_data_read), getString(R.string.file_read_not_found) + e.toString());
+	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString());
 	    } catch (IOException e) {
-	        Log.e(getString(R.string.tag_data_read), getString(R.string.file_read_error) + e.toString());
+	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString());
 	    }
 
 	    return ret;

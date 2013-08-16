@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.edit.EditDialogListener;
 import fr.oni.cookbook.dialog.edit.EditStepDialogFragment;
 import fr.oni.cookbook.model.Data;
@@ -44,9 +45,9 @@ public class EditStepsFragment extends Fragment implements EditDialogListener {
 				EditStepDialogFragment dialog = new EditStepDialogFragment();
 				dialog.setListener(EditStepsFragment.this);
 				Bundle data = new Bundle();
-				data.putSerializable(getString(R.string.key_position_step), position);
+				data.putSerializable(StringConstant.KEY_POSITION_STEP, position);
 				dialog.setArguments(data);
-				dialog.show(getFragmentManager(), getString(R.string.tag_edit_step));
+				dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_STEP);
 			}
 		});
 		v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

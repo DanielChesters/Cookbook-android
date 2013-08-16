@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.edit.EditDialogListener;
 import fr.oni.cookbook.dialog.edit.EditIngredientDialogFragment;
 import fr.oni.cookbook.model.Data;
@@ -45,9 +46,9 @@ public class EditIngredientsFragment extends Fragment implements EditDialogListe
 				EditIngredientDialogFragment dialog = new EditIngredientDialogFragment();
 				dialog.setListener(EditIngredientsFragment.this);
 				Bundle data = new Bundle();
-				data.putInt(getString(R.string.key_position_ingredient), pos);
+				data.putInt(StringConstant.KEY_POSITION_INGREDIENT, pos);
 				dialog.setArguments(data);
-				dialog.show(getFragmentManager(), getString(R.string.tag_edit_ingredient));
+				dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
 			}
 
 		});
