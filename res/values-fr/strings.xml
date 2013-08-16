@@ -8,7 +8,7 @@
     <string name="action_save_recipes">Sauvegarder les recettes</string>
     <string name="action_save_recipes_confirm">Recettes sauvegardées!</string>
     <string name="action_edit_recipe">Edition</string>
-    <string name="action_delete_recipe">Suppresion</string>
+    <string name="action_delete_recipe">Suppression</string>
     <string name="action_add_ingredient">Ajout d\'un ingrédient</string>
     <string name="action_add_step">Ajout d\'une étape</string>
     <string name="action_share">Partager…</string>
