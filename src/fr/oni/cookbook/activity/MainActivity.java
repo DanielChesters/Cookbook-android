@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
 import fr.oni.cookbook.model.Data;
@@ -121,6 +122,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private void saveRecipes() {
 		writeToFile(dataToString());
+		Toast.makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
 	}
 
 
