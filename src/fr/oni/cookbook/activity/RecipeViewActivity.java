@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import fr.oni.cookbook.R;
@@ -49,12 +50,13 @@ public class RecipeViewActivity extends ActionBarActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    getMenuInflater().inflate(R.menu.view_menu, menu);
+
 	    MenuItem shareItem = menu.findItem(R.id.action_share);
 
 	    shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
 	    shareActionProvider.setShareIntent(getShareIntent());
 
-	    return super.onCreateOptionsMenu(menu);
+	    return true;
 	}
 
 	private Intent getShareIntent() {

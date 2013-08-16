@@ -48,12 +48,12 @@ public class Recipe implements Serializable{
 		StringBuilder builder = new StringBuilder();
 		builder.append(title);
 
-		if (description.length() > 0) {
+		if (description != null && description.length() > 0) {
 			builder.append("\n\n");
 			builder.append(description);
 		}
 
-		if (!ingredients.isEmpty()){
+		if (!getIngredients().isEmpty()){
 			builder.append("\n\n");
 			for (Ingredient ingredient : ingredients) {
 				builder.append(ingredient);
@@ -62,7 +62,7 @@ public class Recipe implements Serializable{
 
 		}
 
-		if (!steps.isEmpty()) {
+		if (!getSteps().isEmpty()) {
 			builder.append("\n\n");
 			for (Step step : steps) {
 				builder.append(step);
