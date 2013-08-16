@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Livre de recette</string>
+    <string name="welcome">Bienvenu dans le livre de recette!</string>
+    <string name="action_new_recipe">Nouvelle recette</string>
+    <string name="action_save_recipe">Sauvegarder</string>
+    <string name="action_save_recipes">Sauvegarder les recettes</string>
+    <string name="action_save_recipes_confirm">Recettes sauvegardées!</string>
+    <string name="action_edit_recipe">Edition</string>
+    <string name="action_delete_recipe">Suppresion</string>
+    <string name="action_add_ingredient">Ajout d\'un ingrédient</string>
+    <string name="action_add_step">Ajout d\'une étape</string>
+
+    <string name="edit_title">Titre</string>
+    <string name="edit_description">Description</string>
+
+    <string name="tab_name_recipe">Recette</string>
+    <string name="tab_name_ingredients">Ingrédients</string>
+    <string name="tab_name_steps">Étapes</string>
+
+    <string name="step_view_title">Étape</string>
+    <string name="step_view_ok">OK</string>
+
+    <string name="step_edit_title">Édition de l\'étape</string>
+    <string name="ingredient_edit_title">Édition de l\'ingrédient</string>
+    <string name="edit_ok">OK</string>
+    <string name="edit_cancel">Annuler</string>
+
+    <string name="delete_dialog_title">Suppresion de la recette : </string>
+    <string name="delete_dialog_text">Êtes-vous sur de vouloir supprimer cette recette ?</string>
+    <string name="delete_dialog_step_title">Suppresion de l\'étape</string>
+    <string name="delete_dialog_step_text">Êtes-vous sur de vouloir supprimer cette étape ?</string>
+    <string name="delete_dialog_ingredient_title">Suppression de l\'ingrédient</string>
+    <string name="delete_dialog_ingredient_text">Êtes-vous sur de vouloir supprimer cet ingrédient ?</string>
+    <string name="delete_dialog_yes">Oui</string>
+    <string name="delete_dialog_no">Non</string>
+
+    <string name="new_recipe">Nouvelle recette</string>
+    <string name="new_ingredient">Nouvel ingrédient</string>
+    <string name="new_step">Nouvelle étape</string>
+
+    <!-- Technical string don't need to be translate -->
+
+    <string name="data_file">data.json</string>
+    <string name="tag_delete">delete</string>
+	<string name="tag_step">step</string>
+	<string name="tag_edit_ingredient">editIngredient</string>
+	<string name="tag_edit_step">editStep</string>
+	<string name="tag_data_write">Data write</string>
+	<string name="file_write_error">File write failed: </string>
+	<string name="tag_data_read">Data read</string>
+	<string name="file_read_error">Can not read file: </string>
+	<string name="file_read_not_found">File not found: </string>
+	<string name="key_recipe">recipe</string>
+	<string name="key_position_ingredient">posIngredient</string>
+	<string name="key_position_step">posStep</string>
+
+</resources>
