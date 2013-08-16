@@ -42,33 +42,33 @@
     <string name="new_step">Nouvelle étape</string>
 
     <!-- Label for the "Done" button on the far left of action mode toolbars. -->
-    <string name="abc_action_mode_done">Done</string>
+    <string name="abc_action_mode_done">Fait</string>
     <!-- Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_bar_home_description">Navigate home</string>
+    <string name="abc_action_bar_home_description">Redirige vers l\'écran "home"</string>
     <!-- Content description for the action bar "up" affordance. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_bar_up_description">Navigate up</string>
+    <string name="abc_action_bar_up_description">Redirige vers l\'écran "up"</string>
     <!-- Content description for the action menu overflow button. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_menu_overflow_description">More options</string>
+    <string name="abc_action_menu_overflow_description">Plus d'options</string>
 
     <!-- SearchView accessibility description for search button [CHAR LIMIT=NONE] -->
-    <string name="abc_searchview_description_search">Search</string>
+    <string name="abc_searchview_description_search">Rechercher</string>
     <!-- SearchView accessibility description for search text field [CHAR LIMIT=NONE] -->
-    <string name="abc_searchview_description_query">Search query</string>
+    <string name="abc_searchview_description_query">Recherche</string>
     <!-- SearchView accessibility description for clear button [CHAR LIMIT=NONE] -->
-    <string name="abc_searchview_description_clear">Clear query</string>
+    <string name="abc_searchview_description_clear">Effacer la demande</string>
     <!-- SearchView accessibility description for submit button [CHAR LIMIT=NONE] -->
-    <string name="abc_searchview_description_submit">Submit query</string>
+    <string name="abc_searchview_description_submit">Envoyer la demande</string>
     <!-- SearchView accessibility description for voice button [CHAR LIMIT=NONE] -->
-    <string name="abc_searchview_description_voice">Voice search</string>
+    <string name="abc_searchview_description_voice">Recherche vocale</string>
 
     <!-- ActivityChooserView - accessibility support -->
     <!-- Description of the shwoing of a popup window with activities to choose from. [CHAR LIMIT=NONE] -->
-    <string name="abc_activitychooserview_choose_application">Choose an app</string>
+    <string name="abc_activitychooserview_choose_application">Choisissez une application</string>
     <!-- Title for a button to expand the list of activities in ActivityChooserView [CHAR LIMIT=25] -->
-    <string name="abc_activity_chooser_view_see_all">See all</string>
+    <string name="abc_activity_chooser_view_see_all">Tout voir</string>
     <!-- Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
-    <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
+    <string name="abc_shareactionprovider_share_with_application">Partager avec %s</string>
     <!-- Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
-    <string name="abc_shareactionprovider_share_with">Share with</string>
+    <string name="abc_shareactionprovider_share_with">Partager avec</string>
 
 </resources>
