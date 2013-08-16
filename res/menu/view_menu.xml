@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cookbook="http://schemas.android.com/apk/res-auto">
+
 	<item
         android:id="@+id/action_edit"
         cookbook:showAsAction="ifRoom"
@@ -12,5 +13,12 @@
         cookbook:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/action_delete_recipe"
+        />
+	 <item
+        android:id="@+id/action_share"
+        cookbook:showAsAction="ifRoom"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/action_share"
+        cookbook:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         />
 </menu>

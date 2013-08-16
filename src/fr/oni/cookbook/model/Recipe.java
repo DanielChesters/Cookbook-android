@@ -43,6 +43,35 @@ public class Recipe implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(title);
+
+		if (description.length() > 0) {
+			builder.append("\n\n");
+			builder.append(description);
+		}
+
+		if (!ingredients.isEmpty()){
+			builder.append("\n\n");
+			for (Ingredient ingredient : ingredients) {
+				builder.append(ingredient);
+				builder.append("\n");
+			}
+
+		}
+
+		if (!steps.isEmpty()) {
+			builder.append("\n\n");
+			for (Step step : steps) {
+				builder.append(step);
+				builder.append("\n\n");
+			}
+		}
+
+		return builder.toString();
+	}
 
 
 }

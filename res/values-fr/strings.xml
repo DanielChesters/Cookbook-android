@@ -11,6 +11,7 @@
     <string name="action_delete_recipe">Suppresion</string>
     <string name="action_add_ingredient">Ajout d\'un ingrédient</string>
     <string name="action_add_step">Ajout d\'une étape</string>
+    <string name="action_share">Partager…</string>
 
     <string name="edit_title">Titre</string>
     <string name="edit_description">Description</string>

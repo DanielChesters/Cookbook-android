@@ -12,6 +12,7 @@
     <string name="action_delete_recipe">Delete</string>
     <string name="action_add_ingredient">Add ingredient</string>
     <string name="action_add_step">Add step</string>
+    <string name="action_share">Share…</string>
 
     <string name="edit_title">Title</string>
     <string name="edit_description">Description</string>

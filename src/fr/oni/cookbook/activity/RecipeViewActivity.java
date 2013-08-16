@@ -3,11 +3,13 @@ package fr.oni.cookbook.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 import fr.oni.cookbook.R;
@@ -27,6 +29,7 @@ public class RecipeViewActivity extends ActionBarActivity implements
 
 	ViewPager viewPager;
 	RecipeViewPagerAdapter recipeViewPagerAdapter;
+	ShareActionProvider shareActionProvider;
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
@@ -46,7 +49,23 @@ public class RecipeViewActivity extends ActionBarActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    getMenuInflater().inflate(R.menu.view_menu, menu);
+	    MenuItem shareItem = menu.findItem(R.id.action_share);
+
+	    shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+	    shareActionProvider.setShareIntent(getShareIntent());
+
 	    return super.onCreateOptionsMenu(menu);
+	}
+
+	private Intent getShareIntent() {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("text/plain");
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+		intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
+		intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
+
+		return intent;
 	}
 
 	@Override
