@@ -48,7 +48,7 @@
     <!-- Content description for the action bar "up" affordance. [CHAR LIMIT=NONE] -->
     <string name="abc_action_bar_up_description">Redirige vers l\'écran "up"</string>
     <!-- Content description for the action menu overflow button. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_menu_overflow_description">Plus d'options</string>
+    <string name="abc_action_menu_overflow_description">Plus d\'options</string>
 
     <!-- SearchView accessibility description for search button [CHAR LIMIT=NONE] -->
     <string name="abc_searchview_description_search">Rechercher</string>
