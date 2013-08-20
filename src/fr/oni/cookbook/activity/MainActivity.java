@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -55,15 +56,11 @@ public class MainActivity extends ActionBarActivity {
 
         final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
 
-        if (data.getRecipes().isEmpty()) {
-        	String json = readFromFile();
-        	if (json.length() == 0) {
-        		data.getRecipes().addAll(getSamplesRecipes());
-        	} else {
-        		stringToData(json);
-        	}
-        }
+        recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
+        if (data.getRecipes().isEmpty()) {
+        	new ReadTask().execute();
+        }
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
@@ -72,8 +69,6 @@ public class MainActivity extends ActionBarActivity {
         		startActivityForResult(intent, VIEW_RECIPE_REQUEST);
     	    }
 		});
-
-        recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
 		listRecipes.setAdapter(recipeAdapter);
     }
@@ -130,8 +125,42 @@ public class MainActivity extends ActionBarActivity {
 
 
 	private void saveRecipes() {
-		writeToFile(dataToString());
+		new SaveTask().execute();
 		Toast.makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
+	}
+
+
+	private class ReadTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			String json = readFromFile();
+
+        	if (json.length() == 0) {
+        		data.getRecipes().addAll(getSamplesRecipes());
+        	} else {
+        		stringToData(json);
+        	}
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			recipeAdapter.notifyDataSetChanged();
+		}
+
+	}
+
+
+	private class SaveTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			writeToFile(dataToString());
+			return null;
+		}
+
 	}
 
 
