@@ -71,6 +71,7 @@ public class MainActivity extends ActionBarActivity {
 		});
 
 		listRecipes.setAdapter(recipeAdapter);
+
     }
 
 
@@ -130,23 +131,23 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 
-	private class ReadTask extends AsyncTask<Void, Void, Void> {
+	private class ReadTask extends AsyncTask<Void, Void, String> {
 
 		@Override
-		protected Void doInBackground(Void... params) {
-			String json = readFromFile();
+		protected String doInBackground(Void... params) {
+			return readFromFile();
+		}
 
-        	if (json.length() == 0) {
+		@Override
+		protected void onPostExecute(String json) {
+			data.getRecipes().clear();
+
+			if (json.isEmpty()) {
         		data.getRecipes().addAll(getSamplesRecipes());
         	} else {
         		stringToData(json);
         	}
 
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
 			recipeAdapter.notifyDataSetChanged();
 		}
 
@@ -192,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
 		Gson gson = new Gson();
 		Type collectionType = new TypeToken<List<Recipe>>(){}.getType();
 		List<Recipe> recipes = gson.fromJson(json, collectionType);
-		data.setRecipes(recipes);
+		data.getRecipes().addAll(recipes);
 	}
 
 	private void writeToFile(String data) {
