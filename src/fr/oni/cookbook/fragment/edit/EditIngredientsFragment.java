@@ -23,6 +23,37 @@ import fr.oni.cookbook.model.Ingredient;
 
 public class EditIngredientsFragment extends Fragment implements EditDialogListener{
 
+	private final class EditIngredientsOnClickListener implements
+			AdapterView.OnItemLongClickListener {
+		@Override
+		public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle(R.string.delete_dialog_ingredient_title);
+			builder.setMessage(R.string.delete_dialog_ingredient_text);
+			builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					data.getRecipes().get(data.getPosition()).getIngredients().remove(position);
+					adapter.notifyDataSetChanged();
+					dialog.dismiss();
+				}
+
+			});
+			builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+
+			});
+
+			builder.show();
+			return false;
+		}
+	}
+
 	Data data;
 	ArrayAdapter<Ingredient> adapter;
 
@@ -45,44 +76,15 @@ public class EditIngredientsFragment extends Fragment implements EditDialogListe
 			public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
 				EditIngredientDialogFragment dialog = new EditIngredientDialogFragment();
 				dialog.setListener(EditIngredientsFragment.this);
-				Bundle data = new Bundle();
-				data.putInt(StringConstant.KEY_POSITION_INGREDIENT, pos);
-				dialog.setArguments(data);
+				Bundle onClickData = new Bundle();
+				onClickData.putInt(StringConstant.KEY_POSITION_INGREDIENT, pos);
+				dialog.setArguments(onClickData);
 				dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
 			}
 
 		});
 
-		v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-				builder.setTitle(R.string.delete_dialog_ingredient_title);
-				builder.setMessage(R.string.delete_dialog_ingredient_text);
-				builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						data.getRecipes().get(data.getPosition()).getIngredients().remove(position);
-						adapter.notifyDataSetChanged();
-						dialog.dismiss();
-					}
-
-				});
-				builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-
-				});
-
-				builder.show();
-				return false;
-			}
-		});
+		v.setOnItemLongClickListener(new EditIngredientsOnClickListener());
 
 		v.setAdapter(adapter);
 		return v;

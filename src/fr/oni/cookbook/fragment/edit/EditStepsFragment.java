@@ -23,6 +23,37 @@ import fr.oni.cookbook.model.Step;
 
 public class EditStepsFragment extends Fragment implements EditDialogListener {
 
+	private final class EditStepsFragementOnClickListener implements
+			AdapterView.OnItemLongClickListener {
+		@Override
+		public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle(R.string.delete_dialog_step_title);
+			builder.setMessage(R.string.delete_dialog_step_text);
+			builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					data.getRecipes().get(data.getPosition()).getSteps().remove(position);
+					adapter.notifyDataSetChanged();
+					dialog.dismiss();
+				}
+
+			});
+			builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+
+			});
+
+			builder.show();
+			return false;
+		}
+	}
+
 	Data data;
 	private ArrayAdapter<Step> adapter;
 
@@ -44,42 +75,13 @@ public class EditStepsFragment extends Fragment implements EditDialogListener {
 			public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
 				EditStepDialogFragment dialog = new EditStepDialogFragment();
 				dialog.setListener(EditStepsFragment.this);
-				Bundle data = new Bundle();
-				data.putSerializable(StringConstant.KEY_POSITION_STEP, position);
-				dialog.setArguments(data);
+				Bundle onClickData = new Bundle();
+				onClickData.putSerializable(StringConstant.KEY_POSITION_STEP, position);
+				dialog.setArguments(onClickData);
 				dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_STEP);
 			}
 		});
-		v.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-				builder.setTitle(R.string.delete_dialog_step_title);
-				builder.setMessage(R.string.delete_dialog_step_text);
-				builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						data.getRecipes().get(data.getPosition()).getSteps().remove(position);
-						adapter.notifyDataSetChanged();
-						dialog.dismiss();
-					}
-
-				});
-				builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-
-				});
-
-				builder.show();
-				return false;
-			}
-		});
+		v.setOnItemLongClickListener(new EditStepsFragementOnClickListener());
 		adapter = new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout, R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
 		v.setAdapter(adapter);
 		return v;

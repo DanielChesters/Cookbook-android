@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.util.SparseArray;
 import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
 import fr.oni.cookbook.fragment.view.ViewStepsFragment;
@@ -43,8 +44,10 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
 			f.setArguments(data);
 			return f;
 		} catch (InstantiationException e) {
+			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			return null;
 		} catch (IllegalAccessException e) {
+			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			return null;
 		}
 	}

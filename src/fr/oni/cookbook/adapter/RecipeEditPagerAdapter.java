@@ -3,6 +3,7 @@ package fr.oni.cookbook.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.util.SparseArray;
 import fr.oni.cookbook.fragment.edit.EditIngredientsFragment;
 import fr.oni.cookbook.fragment.edit.EditStepsFragment;
@@ -34,8 +35,10 @@ public class RecipeEditPagerAdapter extends FragmentStatePagerAdapter {
 			Fragment f = clazz.newInstance();
 			return f;
 		} catch (InstantiationException e) {
+			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			return null;
 		} catch (IllegalAccessException e) {
+			Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
 			return null;
 		}
 	}

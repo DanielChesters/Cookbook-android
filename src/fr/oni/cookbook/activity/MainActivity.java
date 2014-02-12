@@ -203,7 +203,7 @@ public class MainActivity extends ActionBarActivity {
 	        outputStreamWriter.close();
 	    }
 	    catch (IOException e) {
-	        Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString());
+	        Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
 	    }
 	}
 
@@ -230,9 +230,9 @@ public class MainActivity extends ActionBarActivity {
 	        }
 	    }
 	    catch (FileNotFoundException e) {
-	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString());
+	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
 	    } catch (IOException e) {
-	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString());
+	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString(), e);
 	    }
 
 	    return ret;

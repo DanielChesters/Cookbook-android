@@ -40,17 +40,14 @@ public class EditTitleFragment extends Fragment {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-
 				ActionBarActivity activity = (ActionBarActivity) getActivity();
 				activity.getSupportActionBar().setTitle(s);
-
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				// Do nothing
-
 			}
 
 			@Override
