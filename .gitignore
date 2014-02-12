@@ -32,3 +32,4 @@ proguard/
 /log-*.txt
 /reports
 .pmd
+.sonar/
