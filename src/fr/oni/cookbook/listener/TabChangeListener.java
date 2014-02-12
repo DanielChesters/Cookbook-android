@@ -13,19 +13,17 @@ public class TabChangeListener implements OnPageChangeListener {
 
     @Override
     public void onPageScrollStateChanged(int position) {
-        actionBar.setSelectedNavigationItem(position);
+        // do Nothing
     }
 
     @Override
     public void onPageScrolled(int arg0, float arg1, int arg2) {
         // do Nothing
-
     }
 
     @Override
-    public void onPageSelected(int arg0) {
-        // do Nothing
-
+    public void onPageSelected(int position) {
+        actionBar.setSelectedNavigationItem(position);
     }
 
 }
