@@ -37,18 +37,18 @@ import fr.oni.cookbook.model.Step;
 
 public class MainActivity extends ActionBarActivity {
 
-	static final int EDIT_RECIPE_REQUEST = 1;
-	static final int VIEW_RECIPE_REQUEST = 2;
-	Data data;
-	MainRecipeAdapter recipeAdapter;
+    static final int EDIT_RECIPE_REQUEST = 1;
+    static final int VIEW_RECIPE_REQUEST = 2;
+    private Data data;
+    private MainRecipeAdapter recipeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (BuildConfig.DEBUG) {
-        	StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
-        	StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
         }
 
         setContentView(R.layout.activity_main);
@@ -59,46 +59,44 @@ public class MainActivity extends ActionBarActivity {
         recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
         if (data.getRecipes().isEmpty()) {
-        	new ReadTask().execute();
+            new ReadTask().execute();
         }
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
-        		Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
-        		data.setPosition(id);
-        		startActivityForResult(intent, VIEW_RECIPE_REQUEST);
-    	    }
-		});
+            public void onItemClick(AdapterView<?> adapterView, View view, int id,long itemID) {
+                Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
+                data.setPosition(id);
+                startActivityForResult(intent, VIEW_RECIPE_REQUEST);
+            }
+        });
 
-		listRecipes.setAdapter(recipeAdapter);
+        listRecipes.setAdapter(recipeAdapter);
 
     }
 
+    private List<Recipe> getSamplesRecipes() {
+        final List<Recipe> recipes = new ArrayList<Recipe>();
+        Recipe recipe = new Recipe("Long Test");
+        recipe.setDescription("This is a description");
 
-	private List<Recipe> getSamplesRecipes() {
-		final List<Recipe> recipes = new ArrayList<Recipe>();
-		Recipe recipe = new Recipe("Long Test");
-		recipe.setDescription("This is a description");
+        for (int i = 0; i < 10; i++) {
+            recipe.getIngredients().add(new Ingredient("Ingredient " + i));
+        }
 
-		for (int i = 0; i < 10; i++) {
-			recipe.getIngredients().add(new Ingredient("Ingredient " + i));
-		}
+        recipe.getSteps().add(new Step("Tm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7\nTm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7"));
 
-		recipe.getSteps().add(new Step("Tm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7\nTm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7"));
+        for (int i = 0; i < 10; i++) {
+            recipe.getSteps().add(new Step("Step " + i));
+        }
 
-		for (int i = 0; i < 10; i++) {
-			recipe.getSteps().add(new Step("Step " + i));
-		}
+        recipes.add(recipe);
 
-		recipes.add(recipe);
+        for (int i = 0; i < 10; i++) {
+            recipes.add(new Recipe("Test " + + i));
+        }
 
-		for (int i = 0; i < 10; i++) {
-			recipes.add(new Recipe("Test " + + i));
-		}
-
-		return recipes;
-	}
-
+        return recipes;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,135 +105,128 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_add:
+            addRecipe();
+            return true;
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_add:
-			addRecipe();
-			return true;
+        case R.id.action_save_recipes:
+            saveRecipes();
+            return true;
 
-		case R.id.action_save_recipes:
-			saveRecipes();
-			return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    private void saveRecipes() {
+        new SaveTask().execute();
+        Toast.makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
+    }
 
+    private class ReadTask extends AsyncTask<Void, Void, String> {
 
-	private void saveRecipes() {
-		new SaveTask().execute();
-		Toast.makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
-	}
+        @Override
+        protected String doInBackground(Void... params) {
+            return readFromFile();
+        }
 
+        @Override
+        protected void onPostExecute(String json) {
+            data.getRecipes().clear();
 
-	private class ReadTask extends AsyncTask<Void, Void, String> {
+            if (json.isEmpty()) {
+                data.getRecipes().addAll(getSamplesRecipes());
+            } else {
+                stringToData(json);
+            }
 
-		@Override
-		protected String doInBackground(Void... params) {
-			return readFromFile();
-		}
+            recipeAdapter.notifyDataSetChanged();
+        }
 
-		@Override
-		protected void onPostExecute(String json) {
-			data.getRecipes().clear();
+    }
 
-			if (json.isEmpty()) {
-        		data.getRecipes().addAll(getSamplesRecipes());
-        	} else {
-        		stringToData(json);
-        	}
+    private class SaveTask extends AsyncTask<Void, Void, Void> {
 
-			recipeAdapter.notifyDataSetChanged();
-		}
+        @Override
+        protected Void doInBackground(Void... params) {
+            writeToFile(dataToString());
+            return null;
+        }
 
-	}
+    }
 
+    private void addRecipe() {
+        Recipe recipe = new Recipe(getString(R.string.new_recipe));
+        data.getRecipes().add(recipe);
+        data.setPosition(data.getRecipes().indexOf(recipe));
+        Intent intent = new Intent(getApplicationContext(), EditActivity.class);
 
-	private class SaveTask extends AsyncTask<Void, Void, Void> {
+        startActivityForResult(intent, EDIT_RECIPE_REQUEST);
+    }
 
-		@Override
-		protected Void doInBackground(Void... params) {
-			writeToFile(dataToString());
-			return null;
-		}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (resultCode == RESULT_OK) {
+            recipeAdapter.notifyDataSetChanged();
+            writeToFile(dataToString());
+        }
+    }
 
-	}
+    private String dataToString() {
+        Gson gson = new Gson();
+        return gson.toJson(data.getRecipes());
+    }
 
+    private void stringToData(String json) {
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<List<Recipe>>(){
+            // Nothing
+        }.getType();
+        List<Recipe> recipes = gson.fromJson(json, collectionType);
+        data.getRecipes().addAll(recipes);
+    }
 
-	private void addRecipe() {
-		Recipe recipe = new Recipe(getString(R.string.new_recipe));
-		data.getRecipes().add(recipe);
-		data.setPosition(data.getRecipes().indexOf(recipe));
-		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-
-		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
-	}
-
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-		if (resultCode == RESULT_OK) {
-			recipeAdapter.notifyDataSetChanged();
-			writeToFile(dataToString());
-		}
-	}
-
-
-	private String dataToString() {
-		Gson gson = new Gson();
-		return gson.toJson(data.getRecipes());
-	}
-
-	private void stringToData(String json) {
-		Gson gson = new Gson();
-		Type collectionType = new TypeToken<List<Recipe>>(){}.getType();
-		List<Recipe> recipes = gson.fromJson(json, collectionType);
-		data.getRecipes().addAll(recipes);
-	}
-
-	private void writeToFile(String data) {
-	    try {
-	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE));
-	        outputStreamWriter.write(data);
-	        outputStreamWriter.close();
-	    }
-	    catch (IOException e) {
-	        Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
-	    }
-	}
+    private void writeToFile(String data) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+        }
+    }
 
 
-	private String readFromFile() {
+    private String readFromFile() {
 
-	    String ret = "";
+        String ret = "";
 
-	    try {
-	        InputStream inputStream = openFileInput(StringConstant.DATA_FILE);
+        try {
+            InputStream inputStream = openFileInput(StringConstant.DATA_FILE);
 
-	        if ( inputStream != null ) {
-	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-	            String receiveString = "";
-	            StringBuilder stringBuilder = new StringBuilder();
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
 
-	            while ( (receiveString = bufferedReader.readLine()) != null ) {
-	                stringBuilder.append(receiveString);
-	            }
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
 
-	            inputStream.close();
-	            ret = stringBuilder.toString();
-	        }
-	    }
-	    catch (FileNotFoundException e) {
-	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
-	    } catch (IOException e) {
-	        Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString(), e);
-	    }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString(), e);
+        }
 
-	    return ret;
-	}
+        return ret;
+    }
 
 }

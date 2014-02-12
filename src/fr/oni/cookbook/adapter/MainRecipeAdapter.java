@@ -13,50 +13,50 @@ import fr.oni.cookbook.model.Recipe;
 
 public class MainRecipeAdapter extends BaseAdapter {
 
-	List<Recipe> recipes;
+    List<Recipe> recipes;
 
-	LayoutInflater inflater;
+    LayoutInflater inflater;
 
-	public MainRecipeAdapter(Context context, List<Recipe> recipes) {
-		this.inflater = LayoutInflater.from(context);
-		this.recipes = recipes;
-	}
+    public MainRecipeAdapter(Context context, List<Recipe> recipes) {
+        this.inflater = LayoutInflater.from(context);
+        this.recipes = recipes;
+    }
 
-	@Override
-	public int getCount() {
-		return recipes.size();
-	}
+    @Override
+    public int getCount() {
+        return recipes.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return recipes.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return recipes.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-	private static class ViewHolder {
-		TextView tvTitle;
-	}
+    private static class ViewHolder {
+        TextView tvTitle;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        View v = convertView;
+        if (v == null) {
+            holder = new ViewHolder();
+            v = inflater.inflate(R.layout.recipe_list_linear_layout, null);
+            holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+            v.setTag(holder);
+        } else {
+            holder = (ViewHolder) v.getTag();
+        }
 
-		if (convertView == null) {
-			holder = new ViewHolder();
-			convertView = inflater.inflate(R.layout.recipe_list_linear_layout, null);
-			holder.tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
-		}
+        holder.tvTitle.setText(recipes.get(position).getTitle());
 
-		holder.tvTitle.setText(recipes.get(position).getTitle());
-
-		return convertView;
-	}
+        return v;
+    }
 
 }

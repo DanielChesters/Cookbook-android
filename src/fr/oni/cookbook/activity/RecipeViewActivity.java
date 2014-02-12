@@ -2,13 +2,7 @@ package fr.oni.cookbook.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.Tab;
-import android.support.v7.app.ActionBar.TabListener;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,131 +10,68 @@ import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.adapter.RecipeViewPagerAdapter;
 import fr.oni.cookbook.dialog.view.DeleteRecipeConfirmDialogFragment;
-import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
-public class RecipeViewActivity extends ActionBarActivity implements
-		TabListener {
+public class RecipeViewActivity extends AbstractActivity {
 
-	static final int EDIT_RECIPE_REQUEST = 1;
+    static final int EDIT_RECIPE_REQUEST = 1;
 
-	Recipe recipe;
+    private Recipe recipe;
 
-	Data data;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.view_menu, menu);
 
-	ViewPager viewPager;
-	RecipeViewPagerAdapter recipeViewPagerAdapter;
-	ShareActionProvider shareActionProvider;
+        MenuItem shareItem = menu.findItem(R.id.action_share);
 
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// Do nothing
-	}
+        final ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        shareActionProvider.setShareIntent(getShareIntent());
 
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		viewPager.setCurrentItem(tab.getPosition());
-	}
+        return true;
+    }
 
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// Do nothing
-	}
+    private Intent getShareIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    getMenuInflater().inflate(R.menu.view_menu, menu);
+        intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
+        intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
 
-	    MenuItem shareItem = menu.findItem(R.id.action_share);
+        return intent;
+    }
 
-	    shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-	    shareActionProvider.setShareIntent(getShareIntent());
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewPager.setAdapter(new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, StringConstant.KEY_RECIPE));
+    }
 
-	    return true;
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case R.id.action_edit:
+            editRecipe();
+            return true;
+        case R.id.action_delete:
+            deleteRecipe();
+            return true;
 
-	private Intent getShareIntent() {
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setType("text/plain");
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        default:
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-		intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
-		intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
+    private void deleteRecipe() {
+        DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
+        dialog.show(getSupportFragmentManager(), StringConstant.TAG_DELETE);
+    }
 
-		return intent;
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.view_activity);
-		data = (Data) getApplicationContext();
-		final ActionBar actionBar = getSupportActionBar();
-		viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// do nothing
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// do nothing
-			}
-		});
-
-		recipe = data.getRecipes().get(data.getPosition());
-		recipeViewPagerAdapter = new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, StringConstant.KEY_RECIPE);
-
-		viewPager.setAdapter(recipeViewPagerAdapter);
-
-
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(recipe.getTitle());
-		actionBar.setDisplayHomeAsUpEnabled(true);
-
-		Tab tabRecipe = actionBar.newTab().setText(R.string.tab_name_recipe).setTabListener(this);
-		Tab tabIngredients = actionBar.newTab().setText(R.string.tab_name_ingredients).setTabListener(this);
-		Tab tabSteps = actionBar.newTab().setText(R.string.tab_name_steps).setTabListener(this);
-
-		actionBar.addTab(tabRecipe);
-		actionBar.addTab(tabIngredients);
-		actionBar.addTab(tabSteps);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_edit:
-			editRecipe();
-			return true;
-		case R.id.action_delete:
-			deleteRecipe();
-			return true;
-
-		default:
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	private void deleteRecipe() {
-		DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
-		dialog.show(getSupportFragmentManager(), StringConstant.TAG_DELETE);
-	}
-
-	private void editRecipe() {
-		Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-		startActivityForResult(intent, EDIT_RECIPE_REQUEST);
-	}
+    private void editRecipe() {
+        Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+        startActivityForResult(intent, EDIT_RECIPE_REQUEST);
+    }
 
 
 
