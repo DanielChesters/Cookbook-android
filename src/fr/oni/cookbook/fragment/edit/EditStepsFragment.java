@@ -1,7 +1,5 @@
 package fr.oni.cookbook.fragment.edit;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -16,41 +14,13 @@ import android.widget.ListView;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.edit.EditStepDialogFragment;
+import fr.oni.cookbook.listener.DeleteDialogOnClickListener;
+import fr.oni.cookbook.listener.RemoveListener;
 import fr.oni.cookbook.model.Step;
 
-public class EditStepsFragment extends AbstractEditFragment {
+public class EditStepsFragment extends AbstractEditFragment implements RemoveListener {
 
     private ArrayAdapter<Step> adapter;
-
-    private final class EditStepsFragementOnClickListener implements AdapterView.OnItemLongClickListener {
-        @Override
-        public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.delete_dialog_step_title);
-            builder.setMessage(R.string.delete_dialog_step_text);
-            builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    data.getRecipes().get(data.getPosition()).getSteps().remove(position);
-                    adapter.notifyDataSetChanged();
-                    dialog.dismiss();
-                }
-
-            });
-            builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener(){
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-
-            });
-
-            builder.show();
-            return false;
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +38,7 @@ public class EditStepsFragment extends AbstractEditFragment {
                 dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_STEP);
             }
         });
-        v.setOnItemLongClickListener(new EditStepsFragementOnClickListener());
+        v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(), R.string.delete_dialog_step_title, R.string.delete_dialog_step_text, this, adapter));
         adapter = new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout, R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
         v.setAdapter(adapter);
         return v;
@@ -101,6 +71,11 @@ public class EditStepsFragment extends AbstractEditFragment {
     @Override
     public void onCloseDialog() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void remove(int position) {
+        data.getRecipes().get(data.getPosition()).getSteps().remove(position);
     }
 
 }

@@ -1,7 +1,5 @@
 package fr.oni.cookbook.fragment.edit;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -11,51 +9,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.edit.EditIngredientDialogFragment;
+import fr.oni.cookbook.listener.DeleteDialogOnClickListener;
+import fr.oni.cookbook.listener.RemoveListener;
 import fr.oni.cookbook.model.Ingredient;
 
-public class EditIngredientsFragment extends AbstractEditFragment {
+public class EditIngredientsFragment extends AbstractEditFragment implements RemoveListener {
 
     private ArrayAdapter<Ingredient> adapter;
-
-    private final class EditIngredientsOnClickListener implements OnItemLongClickListener {
-        @Override
-        public boolean onItemLongClick(final AdapterView<?> adapterView, final View v, final int position, final long itemID) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setTitle(R.string.delete_dialog_ingredient_title);
-            builder.setMessage(R.string.delete_dialog_ingredient_text);
-            builder.setPositiveButton(R.string.delete_dialog_yes, new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            remove(position);
-                            adapter.notifyDataSetChanged();
-                            dialog.dismiss();
-                        }
-
-                    });
-            builder.setNegativeButton(R.string.delete_dialog_no, new DialogInterface.OnClickListener() {
-
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-
-                    });
-
-            builder.show();
-            return false;
-        }
-
-        private void remove(final int position) {
-            data.getRecipes().get(data.getPosition()).getIngredients().remove(position);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +38,7 @@ public class EditIngredientsFragment extends AbstractEditFragment {
                 dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
             }
         });
-        v.setOnItemLongClickListener(new EditIngredientsOnClickListener());
+        v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(), R.string.delete_dialog_ingredient_title, R.string.delete_dialog_ingredient_text, this, adapter));
         adapter = new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_edit_list_linear_layout, R.id.ingredient_edit_text, data.getRecipes().get(data.getPosition()).getIngredients());
         v.setAdapter(adapter);
         return v;
@@ -105,5 +70,10 @@ public class EditIngredientsFragment extends AbstractEditFragment {
     @Override
     public void onCloseDialog() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void remove(int position) {
+        data.getRecipes().get(data.getPosition()).getIngredients().remove(position);
     }
 }
