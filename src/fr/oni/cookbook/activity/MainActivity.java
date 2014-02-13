@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -191,7 +192,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void writeToFile(String data) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE), Charset.defaultCharset());
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         } catch (IOException e) {
@@ -208,7 +209,7 @@ public class MainActivity extends ActionBarActivity {
             InputStream inputStream = openFileInput(StringConstant.DATA_FILE);
 
             if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.defaultCharset());
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 String receiveString = "";
                 StringBuilder stringBuilder = new StringBuilder();
@@ -218,6 +219,8 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 inputStream.close();
+                inputStreamReader.close();
+                bufferedReader.close();
                 ret = stringBuilder.toString();
             }
         } catch (FileNotFoundException e) {
