@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:id="@+id/edit_title_fragment">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/edit_title_field"
@@ -21,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/edit_title_field"
+        android:layout_below="@id/edit_title_field"
         android:hint="@string/edit_description"
         android:inputType="textMultiLine"
         android:lines="5"

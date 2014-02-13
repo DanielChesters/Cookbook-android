@@ -44,9 +44,9 @@
     <!-- Label for the "Done" button on the far left of action mode toolbars. -->
     <string name="abc_action_mode_done">Fait</string>
     <!-- Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_bar_home_description">Redirige vers l\'écran "home"</string>
+    <string name="abc_action_bar_home_description">Redirige vers l\'écran &#8220;home&#8221;</string>
     <!-- Content description for the action bar "up" affordance. [CHAR LIMIT=NONE] -->
-    <string name="abc_action_bar_up_description">Redirige vers l\'écran "up"</string>
+    <string name="abc_action_bar_up_description">Redirige vers l\'écran &#8220;up&#8221;</string>
     <!-- Content description for the action menu overflow button. [CHAR LIMIT=NONE] -->
     <string name="abc_action_menu_overflow_description">Plus d\'options</string>
 
