@@ -14,65 +14,67 @@ import fr.oni.cookbook.model.Recipe;
 
 public class RecipeViewActivity extends AbstractActivity {
 
-    static final int EDIT_RECIPE_REQUEST = 1;
+  static final int EDIT_RECIPE_REQUEST = 1;
 
-    private Recipe recipe;
+  private Recipe recipe;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.view_menu, menu);
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.view_menu, menu);
 
-        MenuItem shareItem = menu.findItem(R.id.action_share);
+    MenuItem shareItem = menu.findItem(R.id.action_share);
 
-        final ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        shareActionProvider.setShareIntent(getShareIntent());
+    final ShareActionProvider shareActionProvider =
+        (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+    shareActionProvider.setShareIntent(getShareIntent());
 
+    return true;
+  }
+
+  private Intent getShareIntent() {
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+
+    intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
+    intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
+
+    return intent;
+  }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    recipe = data.getRecipes().get(data.getPosition());
+    viewPager.setAdapter(new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe,
+        StringConstant.KEY_RECIPE));
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_edit:
+        editRecipe();
         return true;
+      case R.id.action_delete:
+        deleteRecipe();
+        return true;
+
+      default:
+        break;
     }
+    return super.onOptionsItemSelected(item);
+  }
 
-    private Intent getShareIntent() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+  private void deleteRecipe() {
+    DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
+    dialog.show(getSupportFragmentManager(), StringConstant.TAG_DELETE);
+  }
 
-        intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
-        intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
-
-        return intent;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        recipe = data.getRecipes().get(data.getPosition());
-        viewPager.setAdapter(new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe, StringConstant.KEY_RECIPE));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case R.id.action_edit:
-            editRecipe();
-            return true;
-        case R.id.action_delete:
-            deleteRecipe();
-            return true;
-
-        default:
-            break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void deleteRecipe() {
-        DeleteRecipeConfirmDialogFragment dialog = new DeleteRecipeConfirmDialogFragment();
-        dialog.show(getSupportFragmentManager(), StringConstant.TAG_DELETE);
-    }
-
-    private void editRecipe() {
-        Intent intent = new Intent(getApplicationContext(), EditActivity.class);
-        startActivityForResult(intent, EDIT_RECIPE_REQUEST);
-    }
+  private void editRecipe() {
+    Intent intent = new Intent(getApplicationContext(), EditActivity.class);
+    startActivityForResult(intent, EDIT_RECIPE_REQUEST);
+  }
 
 
 

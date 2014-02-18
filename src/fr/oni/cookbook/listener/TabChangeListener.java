@@ -5,25 +5,25 @@ import android.support.v7.app.ActionBar;
 
 public class TabChangeListener implements OnPageChangeListener {
 
-    private ActionBar actionBar;
+  private ActionBar actionBar;
 
-    public TabChangeListener(ActionBar actionBar) {
-        this.actionBar = actionBar;
-    }
+  public TabChangeListener(ActionBar actionBar) {
+    this.actionBar = actionBar;
+  }
 
-    @Override
-    public void onPageScrollStateChanged(int position) {
-        // do Nothing
-    }
+  @Override
+  public void onPageScrollStateChanged(int position) {
+    // do Nothing
+  }
 
-    @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {
-        // do Nothing
-    }
+  @Override
+  public void onPageScrolled(int arg0, float arg1, int arg2) {
+    // do Nothing
+  }
 
-    @Override
-    public void onPageSelected(int position) {
-        actionBar.setSelectedNavigationItem(position);
-    }
+  @Override
+  public void onPageSelected(int position) {
+    actionBar.setSelectedNavigationItem(position);
+  }
 
 }

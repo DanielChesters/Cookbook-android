@@ -15,48 +15,48 @@ import android.widget.EditText;
 
 public class EditStepDialogFragment extends DialogFragment {
 
-    Data data;
-    EditText editText;
-    int positionStep;
-    EditDialogListener listener;
+  Data data;
+  EditText editText;
+  int positionStep;
+  EditDialogListener listener;
 
-    public void setListener(EditDialogListener listener) {
-        this.listener = listener;
-    }
+  public void setListener(EditDialogListener listener) {
+    this.listener = listener;
+  }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        data = (Data) getActivity().getApplicationContext();
+  @Override
+  public Dialog onCreateDialog(Bundle savedInstanceState) {
+    data = (Data) getActivity().getApplicationContext();
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View v = inflater.inflate(R.layout.edit_step_dialog_layout, null);
-        final int position = data.getPosition();
-        final Recipe recipe = data.getRecipes().get(position);
+    LayoutInflater inflater = getActivity().getLayoutInflater();
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    View v = inflater.inflate(R.layout.edit_step_dialog_layout, null);
+    final int position = data.getPosition();
+    final Recipe recipe = data.getRecipes().get(position);
 
-        editText = (EditText) v.findViewById(R.id.edit_step_field);
-        positionStep = getArguments().getInt(StringConstant.KEY_POSITION_STEP);
-        editText.setText(recipe.getSteps().get(positionStep).getOrder());
+    editText = (EditText) v.findViewById(R.id.edit_step_field);
+    positionStep = getArguments().getInt(StringConstant.KEY_POSITION_STEP);
+    editText.setText(recipe.getSteps().get(positionStep).getOrder());
 
-        builder.setView(v);
-        builder.setTitle(R.string.step_edit_title);
-        builder.setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                recipe.getSteps().get(positionStep).setOrder(editText.getText().toString());
-                listener.onCloseDialog();
-                EditStepDialogFragment.this.getDialog().dismiss();
-            }
-        });
-        builder.setNegativeButton(R.string.edit_cancel, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                listener.onCloseDialog();
-                EditStepDialogFragment.this.getDialog().cancel();
-            }
-        });
+    builder.setView(v);
+    builder.setTitle(R.string.step_edit_title);
+    builder.setPositiveButton(R.string.edit_ok, new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        recipe.getSteps().get(positionStep).setOrder(editText.getText().toString());
+        listener.onCloseDialog();
+        EditStepDialogFragment.this.getDialog().dismiss();
+      }
+    });
+    builder.setNegativeButton(R.string.edit_cancel, new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        listener.onCloseDialog();
+        EditStepDialogFragment.this.getDialog().cancel();
+      }
+    });
 
-        return builder.create();
-    }
+    return builder.create();
+  }
 
 }

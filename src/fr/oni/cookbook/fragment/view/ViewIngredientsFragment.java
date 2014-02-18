@@ -14,21 +14,21 @@ import fr.oni.cookbook.model.Recipe;
 
 public class ViewIngredientsFragment extends Fragment {
 
-    Recipe recipe;
+  Recipe recipe;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle data = getArguments();
-        recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
-    }
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Bundle data = getArguments();
+    recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        ListView v = (ListView) inflater.inflate(R.layout.view_recipe_ingredients, container, false);
-        v.setAdapter(new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_list_linear_layout, R.id.ingredient_text, recipe.getIngredients()));
-        return v;
-    }
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    ListView v = (ListView) inflater.inflate(R.layout.view_recipe_ingredients, container, false);
+    v.setAdapter(new ArrayAdapter<Ingredient>(getActivity(),
+        R.layout.ingredients_list_linear_layout, R.id.ingredient_text, recipe.getIngredients()));
+    return v;
+  }
 
 }
