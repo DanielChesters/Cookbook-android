@@ -51,8 +51,8 @@ public abstract class AbstractActivity extends ActionBarActivity implements TabL
     actionBarSetup(actionBar, recipe);
 
     final List<Integer> ids =
-        Arrays.asList(new Integer[] {R.string.tab_name_recipe, R.string.tab_name_ingredients,
-            R.string.tab_name_steps});
+        Arrays.asList(R.string.tab_name_recipe, R.string.tab_name_ingredients,
+            R.string.tab_name_steps);
     addTabs(actionBar, ids, this);
   }
 
