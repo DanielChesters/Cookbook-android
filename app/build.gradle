@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.0.2"
+
+    defaultConfig {
+        applicationId "fr.oni.cookbook"
+        minSdkVersion 9
+        targetSdkVersion 19
+
+        testApplicationId "fr.oni.cookbook.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.android.support:appcompat-v7:19.1.0'
+}
