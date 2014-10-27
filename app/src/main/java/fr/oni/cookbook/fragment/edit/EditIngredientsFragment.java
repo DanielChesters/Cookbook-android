@@ -24,28 +24,28 @@ public class EditIngredientsFragment extends AbstractEditFragment implements Rem
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    ActionBarActivity activity = (ActionBarActivity) getActivity();
-    activity.supportInvalidateOptionsMenu();
-    ListView v = (ListView) inflater.inflate(R.layout.edit_recipe_ingredients, container, false);
-    v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        EditIngredientDialogFragment dialog = new EditIngredientDialogFragment();
-        dialog.setListener(EditIngredientsFragment.this);
-        Bundle onClickData = new Bundle();
-        onClickData.putInt(StringConstant.KEY_POSITION_INGREDIENT, pos);
-        dialog.setArguments(onClickData);
-        dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
-      }
-    });
-    v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
-        R.string.delete_dialog_ingredient_title, R.string.delete_dialog_ingredient_text, this,
-        adapter));
-    adapter =
-        new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_edit_list_linear_layout,
-            R.id.ingredient_edit_text, data.getRecipes().get(data.getPosition()).getIngredients());
-    v.setAdapter(adapter);
-    return v;
+      ActionBarActivity activity = (ActionBarActivity) getActivity();
+      activity.supportInvalidateOptionsMenu();
+      ListView v = (ListView) inflater.inflate(R.layout.edit_recipe_ingredients, container, false);
+      v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+              EditIngredientDialogFragment dialog = new EditIngredientDialogFragment();
+              dialog.setListener(EditIngredientsFragment.this);
+              Bundle onClickData = new Bundle();
+              onClickData.putInt(StringConstant.KEY_POSITION_INGREDIENT, pos);
+              dialog.setArguments(onClickData);
+              dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
+          }
+      });
+      adapter = new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_edit_list_linear_layout,
+              R.id.ingredient_edit_text, data.getRecipes().get(data.getPosition()).getIngredients());
+      v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
+              R.string.delete_dialog_ingredient_title, R.string.delete_dialog_ingredient_text, this,
+              adapter));
+
+      v.setAdapter(adapter);
+      return v;
   }
 
   @Override

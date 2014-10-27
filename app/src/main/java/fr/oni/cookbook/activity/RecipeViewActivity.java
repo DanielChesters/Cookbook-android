@@ -34,7 +34,7 @@ public class RecipeViewActivity extends AbstractActivity {
   private Intent getShareIntent() {
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType("text/plain");
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
 
     intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
     intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());

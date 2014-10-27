@@ -24,27 +24,28 @@ public class EditStepsFragment extends AbstractEditFragment implements RemoveLis
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    ActionBarActivity activity = (ActionBarActivity) getActivity();
-    activity.supportInvalidateOptionsMenu();
-    ListView v = (ListView) inflater.inflate(R.layout.edit_recipe_steps, container, false);
-    v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
-        EditStepDialogFragment dialog = new EditStepDialogFragment();
-        dialog.setListener(EditStepsFragment.this);
-        Bundle onClickData = new Bundle();
-        onClickData.putSerializable(StringConstant.KEY_POSITION_STEP, position);
-        dialog.setArguments(onClickData);
-        dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_STEP);
-      }
-    });
-    v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
-        R.string.delete_dialog_step_title, R.string.delete_dialog_step_text, this, adapter));
-    adapter =
-        new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout,
-            R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
-    v.setAdapter(adapter);
-    return v;
+      ActionBarActivity activity = (ActionBarActivity) getActivity();
+      activity.supportInvalidateOptionsMenu();
+      ListView v = (ListView) inflater.inflate(R.layout.edit_recipe_steps, container, false);
+      v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          @Override
+          public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
+              EditStepDialogFragment dialog = new EditStepDialogFragment();
+              dialog.setListener(EditStepsFragment.this);
+              Bundle onClickData = new Bundle();
+              onClickData.putSerializable(StringConstant.KEY_POSITION_STEP, position);
+              dialog.setArguments(onClickData);
+              dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_STEP);
+          }
+      });
+
+      adapter =
+              new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout,
+                      R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
+      v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
+              R.string.delete_dialog_step_title, R.string.delete_dialog_step_text, this, adapter));
+      v.setAdapter(adapter);
+      return v;
   }
 
   @Override
