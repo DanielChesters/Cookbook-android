@@ -47,7 +47,7 @@ public class MainRecipeAdapter extends BaseAdapter {
     View v = convertView;
     if (v == null) {
       holder = new ViewHolder();
-      v = inflater.inflate(R.layout.recipe_list_linear_layout, null);
+      v = inflater.inflate(R.layout.recipe_list_linear_layout, parent, false);
       holder.tvTitle = (TextView) v.findViewById(R.id.tvTitle);
       v.setTag(holder);
     } else {

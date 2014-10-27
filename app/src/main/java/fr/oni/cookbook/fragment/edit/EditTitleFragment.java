@@ -29,7 +29,7 @@ public class EditTitleFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    View v = inflater.inflate(R.layout.edit_recipe_title, null);
+    View v = inflater.inflate(R.layout.edit_recipe_title, container, false);
 
     titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
     descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
