@@ -16,7 +16,7 @@ import fr.oni.cookbook.model.Recipe;
 
 public class RecipeViewActivity extends AbstractActivity {
 
-  static final int EDIT_RECIPE_REQUEST = 1;
+  private static final int EDIT_RECIPE_REQUEST = 1;
 
   private Recipe recipe;
 

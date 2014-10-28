@@ -14,11 +14,11 @@ import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
 public class EditTitleFragment extends Fragment {
-  EditText titleEditText;
-  EditText descriptionEditText;
-  Recipe recipe;
+  private EditText titleEditText;
+  private EditText descriptionEditText;
+  private Recipe recipe;
 
-  Data data;
+  private Data data;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

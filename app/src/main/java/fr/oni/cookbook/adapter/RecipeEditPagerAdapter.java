@@ -15,7 +15,7 @@ import fr.oni.cookbook.fragment.edit.EditTitleFragment;
 public class RecipeEditPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context context;
-    SparseArray<Fragment> fragArray = new SparseArray<>();
+    private SparseArray<Fragment> fragArray = new SparseArray<>();
 
   public RecipeEditPagerAdapter(FragmentManager fm, Context context) {
     super(fm);

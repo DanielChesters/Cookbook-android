@@ -17,7 +17,7 @@ import fr.oni.cookbook.model.Step;
 
 public class ViewStepsFragment extends Fragment {
 
-  Recipe recipe;
+  private Recipe recipe;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

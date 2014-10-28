@@ -38,8 +38,8 @@ import fr.oni.cookbook.model.Step;
 
 public class MainActivity extends ActionBarActivity {
 
-  static final int EDIT_RECIPE_REQUEST = 1;
-  static final int VIEW_RECIPE_REQUEST = 2;
+  private static final int EDIT_RECIPE_REQUEST = 1;
+  private static final int VIEW_RECIPE_REQUEST = 2;
   private Data data;
   private MainRecipeAdapter recipeAdapter;
 

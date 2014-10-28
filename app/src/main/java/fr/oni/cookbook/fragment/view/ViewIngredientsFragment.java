@@ -14,7 +14,7 @@ import fr.oni.cookbook.model.Recipe;
 
 public class ViewIngredientsFragment extends Fragment {
 
-  Recipe recipe;
+  private Recipe recipe;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

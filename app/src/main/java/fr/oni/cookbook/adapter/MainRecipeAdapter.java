@@ -13,9 +13,9 @@ import fr.oni.cookbook.model.Recipe;
 
 public class MainRecipeAdapter extends BaseAdapter {
 
-  List<Recipe> recipes;
+  private List<Recipe> recipes;
 
-  LayoutInflater inflater;
+  private LayoutInflater inflater;
 
   public MainRecipeAdapter(Context context, List<Recipe> recipes) {
     this.inflater = LayoutInflater.from(context);

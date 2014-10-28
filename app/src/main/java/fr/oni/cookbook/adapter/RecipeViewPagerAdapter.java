@@ -17,9 +17,9 @@ import fr.oni.cookbook.model.Recipe;
 public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
   private Context context;
-  SparseArray<Fragment> fragArray = new SparseArray<>();
-  Recipe recipe;
-  String key;
+  private SparseArray<Fragment> fragArray = new SparseArray<>();
+  private Recipe recipe;
+  private String key;
 
   public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String key, Context context) {
     super(fm);

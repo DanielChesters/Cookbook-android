@@ -15,10 +15,10 @@ import fr.oni.cookbook.model.Recipe;
 
 public class EditIngredientDialogFragment extends DialogFragment {
 
-  Data data;
-  EditText editText;
-  int positionIngredient;
-  EditDialogListener listener;
+  private Data data;
+  private EditText editText;
+  private int positionIngredient;
+  private EditDialogListener listener;
 
 
   @Override

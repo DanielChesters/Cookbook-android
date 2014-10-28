@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 public class ViewStepDialogFragment extends DialogFragment {
-  Step step;
 
+  private Step step;
 
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {

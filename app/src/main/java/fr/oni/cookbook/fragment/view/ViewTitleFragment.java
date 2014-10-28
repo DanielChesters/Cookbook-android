@@ -11,7 +11,8 @@ import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Recipe;
 
 public class ViewTitleFragment extends Fragment {
-  Recipe recipe;
+
+  private Recipe recipe;
 
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

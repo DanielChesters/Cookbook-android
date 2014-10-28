@@ -15,10 +15,10 @@ import android.widget.EditText;
 
 public class EditStepDialogFragment extends DialogFragment {
 
-  Data data;
-  EditText editText;
-  int positionStep;
-  EditDialogListener listener;
+  private Data data;
+  private EditText editText;
+  private int positionStep;
+  private EditDialogListener listener;
 
   public void setListener(EditDialogListener listener) {
     this.listener = listener;
