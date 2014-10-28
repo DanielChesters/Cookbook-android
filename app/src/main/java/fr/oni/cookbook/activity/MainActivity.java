@@ -221,7 +221,7 @@ public class MainActivity extends ActionBarActivity {
         InputStreamReader inputStreamReader =
             new InputStreamReader(inputStream, Charset.defaultCharset());
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String receiveString = "";
+        String receiveString;
         StringBuilder stringBuilder = new StringBuilder();
 
         while ((receiveString = bufferedReader.readLine()) != null) {
