@@ -6,7 +6,7 @@ import java.util.List;
 import android.app.Application;
 
 public class Data extends Application {
-  private List<Recipe> recipes = new ArrayList<Recipe>();
+  private List<Recipe> recipes = new ArrayList<>();
   private int position;
 
   public int getPosition() {

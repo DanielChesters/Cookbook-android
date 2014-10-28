@@ -40,7 +40,7 @@ public class ViewStepsFragment extends Fragment {
         dialog.show(getFragmentManager(), StringConstant.TAG_STEP);
       }
     });
-    v.setAdapter(new ArrayAdapter<Step>(getActivity(), R.layout.steps_list_linear_layout,
+    v.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.steps_list_linear_layout,
         R.id.step_text, recipe.getSteps()));
     return v;
   }

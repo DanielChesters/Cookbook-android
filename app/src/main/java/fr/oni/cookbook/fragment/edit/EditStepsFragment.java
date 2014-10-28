@@ -40,7 +40,7 @@ public class EditStepsFragment extends AbstractEditFragment implements RemoveLis
       });
 
       adapter =
-              new ArrayAdapter<Step>(getActivity(), R.layout.steps_edit_list_linear_layout,
+              new ArrayAdapter<>(getActivity(), R.layout.steps_edit_list_linear_layout,
                       R.id.step_edit_text, data.getRecipes().get(data.getPosition()).getSteps());
       v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
               R.string.delete_dialog_step_title, R.string.delete_dialog_step_text, this, adapter));

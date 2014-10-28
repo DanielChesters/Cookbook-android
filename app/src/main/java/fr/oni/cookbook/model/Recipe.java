@@ -19,14 +19,14 @@ public class Recipe implements Serializable {
 
   public List<Ingredient> getIngredients() {
     if (ingredients == null) {
-      ingredients = new ArrayList<Ingredient>();
+      ingredients = new ArrayList<>();
     }
     return ingredients;
   }
 
   public List<Step> getSteps() {
     if (steps == null) {
-      steps = new ArrayList<Step>();
+      steps = new ArrayList<>();
     }
     return steps;
   }

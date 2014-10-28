@@ -38,7 +38,7 @@ public class EditIngredientsFragment extends AbstractEditFragment implements Rem
               dialog.show(getFragmentManager(), StringConstant.TAG_EDIT_INGREDIENT);
           }
       });
-      adapter = new ArrayAdapter<Ingredient>(getActivity(), R.layout.ingredients_edit_list_linear_layout,
+      adapter = new ArrayAdapter<>(getActivity(), R.layout.ingredients_edit_list_linear_layout,
               R.id.ingredient_edit_text, data.getRecipes().get(data.getPosition()).getIngredients());
       v.setOnItemLongClickListener(new DeleteDialogOnClickListener(getActivity(),
               R.string.delete_dialog_ingredient_title, R.string.delete_dialog_ingredient_text, this,

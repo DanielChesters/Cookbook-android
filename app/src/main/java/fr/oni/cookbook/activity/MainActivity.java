@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
   }
 
   private List<Recipe> getSamplesRecipes() {
-    final List<Recipe> recipes = new ArrayList<Recipe>();
+    final List<Recipe> recipes = new ArrayList<>();
     Recipe recipe = new Recipe("Long Test");
     recipe.setDescription("This is a description");
 
