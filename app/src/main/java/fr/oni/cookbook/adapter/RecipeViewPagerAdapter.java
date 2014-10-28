@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.SparseArray;
 
 import fr.oni.cookbook.R;
+import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
 import fr.oni.cookbook.fragment.view.ViewStepsFragment;
 import fr.oni.cookbook.fragment.view.ViewTitleFragment;
@@ -19,12 +20,10 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
   private Context context;
   private SparseArray<Fragment> fragArray = new SparseArray<>();
   private Recipe recipe;
-  private String key;
 
-  public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String key, Context context) {
+  public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, Context context) {
     super(fm);
     this.recipe = recipe;
-    this.key = key;
     this.context = context;
     fragArray.put(0, createFragment(ViewTitleFragment.class));
     fragArray.put(1, createFragment(ViewIngredientsFragment.class));
@@ -59,7 +58,7 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
     try {
       Fragment f = clazz.newInstance();
       Bundle data = new Bundle();
-      data.putSerializable(key, recipe);
+      data.putSerializable(StringConstant.KEY_RECIPE, recipe);
       f.setArguments(data);
       return f;
     } catch (InstantiationException e) {
