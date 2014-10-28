@@ -1,6 +1,8 @@
 package fr.oni.cookbook.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
@@ -34,7 +36,11 @@ public class RecipeViewActivity extends AbstractActivity {
   private Intent getShareIntent() {
     Intent intent = new Intent(Intent.ACTION_SEND);
     intent.setType("text/plain");
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          setFlagNewDocument(intent);
+      } else {
+          setFlagClearWhenTaskReset(intent);
+      }
 
     intent.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
     intent.putExtra(Intent.EXTRA_TEXT, recipe.toString());
@@ -42,7 +48,17 @@ public class RecipeViewActivity extends AbstractActivity {
     return intent;
   }
 
-  @Override
+    @SuppressWarnings("deprecation")
+    private void setFlagClearWhenTaskReset(Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+    }
+
+    @TargetApi(21)
+    private void setFlagNewDocument(Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+    }
+
+    @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     recipe = data.getRecipes().get(data.getPosition());
