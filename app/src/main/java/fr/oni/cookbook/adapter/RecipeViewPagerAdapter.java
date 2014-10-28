@@ -1,11 +1,14 @@
 package fr.oni.cookbook.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.util.SparseArray;
+
+import fr.oni.cookbook.R;
 import fr.oni.cookbook.fragment.view.ViewIngredientsFragment;
 import fr.oni.cookbook.fragment.view.ViewStepsFragment;
 import fr.oni.cookbook.fragment.view.ViewTitleFragment;
@@ -13,14 +16,16 @@ import fr.oni.cookbook.model.Recipe;
 
 public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
 
-  SparseArray<Fragment> fragArray = new SparseArray<Fragment>();
+  private Context context;
+  SparseArray<Fragment> fragArray = new SparseArray<>();
   Recipe recipe;
   String key;
 
-  public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String key) {
+  public RecipeViewPagerAdapter(FragmentManager fm, Recipe recipe, String key, Context context) {
     super(fm);
     this.recipe = recipe;
     this.key = key;
+    this.context = context;
     fragArray.put(0, createFragment(ViewTitleFragment.class));
     fragArray.put(1, createFragment(ViewIngredientsFragment.class));
     fragArray.put(2, createFragment(ViewStepsFragment.class));
@@ -35,6 +40,20 @@ public class RecipeViewPagerAdapter extends FragmentStatePagerAdapter {
   public int getCount() {
     return 3;
   }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 0:
+                return context.getString(R.string.tab_name_recipe);
+            case 1:
+                return context.getString(R.string.tab_name_ingredients);
+            case 2:
+                return context.getString(R.string.tab_name_steps);
+            default:
+                return super.getPageTitle(position);
+        }
+    }
 
   private Fragment createFragment(Class<? extends Fragment> clazz) {
     try {

@@ -18,7 +18,7 @@ public class EditActivity extends AbstractActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    viewPager.setAdapter(new RecipeEditPagerAdapter(getSupportFragmentManager()));
+    viewPager.setAdapter(new RecipeEditPagerAdapter(getSupportFragmentManager(), getApplicationContext()));
   }
 
   private void onSave() {

@@ -47,7 +47,7 @@ public class RecipeViewActivity extends AbstractActivity {
     super.onCreate(savedInstanceState);
     recipe = data.getRecipes().get(data.getPosition());
     viewPager.setAdapter(new RecipeViewPagerAdapter(getSupportFragmentManager(), recipe,
-        StringConstant.KEY_RECIPE));
+        StringConstant.KEY_RECIPE, getApplicationContext()));
   }
 
   @Override
