@@ -1,2 +1,5 @@
 language: android
+android:
+  components:
+      - android-21
 script: ./gradlew clean build --info
