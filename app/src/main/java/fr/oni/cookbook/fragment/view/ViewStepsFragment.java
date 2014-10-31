@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.dialog.view.ViewStepDialogFragment;
@@ -17,32 +18,32 @@ import fr.oni.cookbook.model.Step;
 
 public class ViewStepsFragment extends Fragment {
 
-  private Recipe recipe;
+    private Recipe recipe;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    Bundle data = getArguments();
-    recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
-  }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle data = getArguments();
+        recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    ListView v = (ListView) inflater.inflate(R.layout.view_recipe_steps, container, false);
-    v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ListView v = (ListView) inflater.inflate(R.layout.view_recipe_steps, container, false);
+        v.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-      @Override
-      public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
-        DialogFragment dialog = new ViewStepDialogFragment();
-        Bundle data = new Bundle();
-        data.putSerializable("step", (Step) adapter.getItemAtPosition(position));
-        dialog.setArguments(data);
-        dialog.show(getFragmentManager(), StringConstant.TAG_STEP);
-      }
-    });
-    v.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.steps_list_linear_layout,
-        R.id.step_text, recipe.getSteps()));
-    return v;
-  }
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long itemID) {
+                DialogFragment dialog = new ViewStepDialogFragment();
+                Bundle data = new Bundle();
+                data.putSerializable("step", (Step) adapter.getItemAtPosition(position));
+                dialog.setArguments(data);
+                dialog.show(getFragmentManager(), StringConstant.TAG_STEP);
+            }
+        });
+        v.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.steps_list_linear_layout,
+                R.id.step_text, recipe.getSteps()));
+        return v;
+    }
 
 }

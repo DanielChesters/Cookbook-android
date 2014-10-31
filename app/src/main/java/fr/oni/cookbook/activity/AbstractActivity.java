@@ -11,28 +11,28 @@ import fr.oni.cookbook.model.Recipe;
 
 public abstract class AbstractActivity extends ActionBarActivity {
 
-  protected ViewPager viewPager;
-  protected Data data;
+    protected ViewPager viewPager;
+    protected Data data;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.edit_activity);
-    data = (Data) getApplicationContext();
-    this.viewPager = (ViewPager) findViewById(R.id.edit_pager);
-    final ActionBar actionBar = getSupportActionBar();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.edit_activity);
+        data = (Data) getApplicationContext();
+        this.viewPager = (ViewPager) findViewById(R.id.edit_pager);
+        final ActionBar actionBar = getSupportActionBar();
 
-    int position = data.getPosition();
-    Recipe recipe = data.getRecipes().get(position);
+        int position = data.getPosition();
+        Recipe recipe = data.getRecipes().get(position);
 
-    actionBarSetup(actionBar, recipe);
-  }
+        actionBarSetup(actionBar, recipe);
+    }
 
 
-  private void actionBarSetup(final ActionBar actionBar, final Recipe recipe) {
-    actionBar.setDisplayShowTitleEnabled(true);
-    actionBar.setTitle(recipe.getTitle());
-    actionBar.setDisplayHomeAsUpEnabled(true);
-  }
+    private void actionBarSetup(final ActionBar actionBar, final Recipe recipe) {
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(recipe.getTitle());
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
 
 }

@@ -9,64 +9,65 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.model.Data;
 import fr.oni.cookbook.model.Recipe;
 
 public class EditTitleFragment extends Fragment {
-  private EditText titleEditText;
-  private EditText descriptionEditText;
-  private Recipe recipe;
+    private EditText titleEditText;
+    private EditText descriptionEditText;
+    private Recipe recipe;
 
-  private Data data;
+    private Data data;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    data = (Data) getActivity().getApplicationContext();
-  }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        data = (Data) getActivity().getApplicationContext();
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    View v = inflater.inflate(R.layout.edit_recipe_title, container, false);
+        View v = inflater.inflate(R.layout.edit_recipe_title, container, false);
 
-    titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
-    descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
-    recipe = data.getRecipes().get(data.getPosition());
+        titleEditText = (EditText) v.findViewById(R.id.edit_title_field);
+        descriptionEditText = (EditText) v.findViewById(R.id.edit_description_field);
+        recipe = data.getRecipes().get(data.getPosition());
 
-    titleEditText.addTextChangedListener(new TextWatcher() {
+        titleEditText.addTextChangedListener(new TextWatcher() {
 
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        ActionBarActivity activity = (ActionBarActivity) getActivity();
-        activity.getSupportActionBar().setTitle(s);
-      }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ActionBarActivity activity = (ActionBarActivity) getActivity();
+                activity.getSupportActionBar().setTitle(s);
+            }
 
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing
-      }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing
+            }
 
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing
-      }
-    });
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do nothing
+            }
+        });
 
-    titleEditText.setText(recipe.getTitle());
-    descriptionEditText.setText(recipe.getDescription());
-    return v;
+        titleEditText.setText(recipe.getTitle());
+        descriptionEditText.setText(recipe.getDescription());
+        return v;
 
-  }
+    }
 
-  @Override
-  public void onPause() {
-    recipe.setTitle(titleEditText.getText().toString());
-    recipe.setDescription(descriptionEditText.getText().toString());
-    data.getRecipes().set(data.getPosition(), recipe);
-    super.onPause();
-  }
+    @Override
+    public void onPause() {
+        recipe.setTitle(titleEditText.getText().toString());
+        recipe.setDescription(descriptionEditText.getText().toString());
+        data.getRecipes().set(data.getPosition(), recipe);
+        super.onPause();
+    }
 
 
 }

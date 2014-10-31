@@ -6,30 +6,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Recipe;
 
 public class ViewTitleFragment extends Fragment {
 
-  private Recipe recipe;
+    private Recipe recipe;
 
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    Bundle data = getArguments();
-    recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
-  }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle data = getArguments();
+        recipe = (Recipe) data.getSerializable(StringConstant.KEY_RECIPE);
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    View v = inflater.inflate(R.layout.view_recipe_title, container, false);
+        View v = inflater.inflate(R.layout.view_recipe_title, container, false);
 
-    TextView titleViewText = (TextView) v.findViewById(R.id.view_title_field);
-    TextView descriptionViewText = (TextView) v.findViewById(R.id.view_description_field);
+        TextView titleViewText = (TextView) v.findViewById(R.id.view_title_field);
+        TextView descriptionViewText = (TextView) v.findViewById(R.id.view_description_field);
 
-    titleViewText.setText(recipe.getTitle());
-    descriptionViewText.setText(recipe.getDescription());
-    return v;
-  }
+        titleViewText.setText(recipe.getTitle());
+        descriptionViewText.setText(recipe.getDescription());
+        return v;
+    }
 }

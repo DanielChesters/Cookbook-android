@@ -4,22 +4,19 @@
 
     <item
         android:id="@+id/action_share"
-        cookbook:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_share"
         android:title="@string/action_share"
         cookbook:actionProviderClass="android.support.v7.widget.ShareActionProvider"
-        />
-	<item
+        cookbook:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_edit"
-        cookbook:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/action_edit_recipe"
-        />
-	<item
+        cookbook:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_delete"
-        cookbook:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/action_delete_recipe"
-        />
+        cookbook:showAsAction="ifRoom" />
 
 </menu>

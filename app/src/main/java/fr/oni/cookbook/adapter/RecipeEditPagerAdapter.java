@@ -17,23 +17,23 @@ public class RecipeEditPagerAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private SparseArray<Fragment> fragArray = new SparseArray<>();
 
-  public RecipeEditPagerAdapter(FragmentManager fm, Context context) {
-    super(fm);
-    this.context = context;
-    fragArray.put(0, createFragment(EditTitleFragment.class));
-    fragArray.put(1, createFragment(EditIngredientsFragment.class));
-    fragArray.put(2, createFragment(EditStepsFragment.class));
-  }
+    public RecipeEditPagerAdapter(FragmentManager fm, Context context) {
+        super(fm);
+        this.context = context;
+        fragArray.put(0, createFragment(EditTitleFragment.class));
+        fragArray.put(1, createFragment(EditIngredientsFragment.class));
+        fragArray.put(2, createFragment(EditStepsFragment.class));
+    }
 
-  @Override
-  public Fragment getItem(int i) {
-    return fragArray.get(i);
-  }
+    @Override
+    public Fragment getItem(int i) {
+        return fragArray.get(i);
+    }
 
-  @Override
-  public int getCount() {
-    return 3;
-  }
+    @Override
+    public int getCount() {
+        return 3;
+    }
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -50,14 +50,14 @@ public class RecipeEditPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment createFragment(Class<? extends Fragment> clazz) {
-    try {
-      return clazz.newInstance();
-    } catch (InstantiationException e) {
-      Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
-      return null;
-    } catch (IllegalAccessException e) {
-      Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
-      return null;
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException e) {
+            Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+            return null;
+        } catch (IllegalAccessException e) {
+            Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+            return null;
+        }
     }
-  }
 }
