@@ -28,7 +28,6 @@ public abstract class AbstractActivity extends ActionBarActivity {
         actionBarSetup(actionBar, recipe);
     }
 
-
     private void actionBarSetup(final ActionBar actionBar, final Recipe recipe) {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(recipe.getTitle());

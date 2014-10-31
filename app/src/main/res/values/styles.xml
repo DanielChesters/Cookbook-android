@@ -1,9 +1,11 @@
 <resources>
     <!-- Application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">#ffc107</item>
-        <item name="colorPrimaryDark">#ffa000</item>
-        <item name="colorAccent">#607d8b</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="icActionAdd">@android:drawable/ic_menu_add</item>
+        <item name="floatingActionButtonColor">@color/colorAccent</item>
     </style>
 
 </resources>

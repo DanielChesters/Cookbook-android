@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shamanland.fab.ShowHideOnScroll;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -74,7 +75,14 @@ public class MainActivity extends ActionBarActivity {
         });
 
         listRecipes.setAdapter(recipeAdapter);
-
+        View fab = findViewById(R.id.fabListRecipes);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addRecipe();
+            }
+        });
+        listRecipes.setOnTouchListener(new ShowHideOnScroll(fab));
     }
 
     private List<Recipe> getSamplesRecipes() {
@@ -115,10 +123,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add:
-                addRecipe();
-                return true;
-
             case R.id.action_save_recipes:
                 saveRecipes();
                 return true;

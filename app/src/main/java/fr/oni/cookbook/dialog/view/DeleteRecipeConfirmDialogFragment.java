@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 
 import fr.oni.cookbook.R;
@@ -14,6 +15,7 @@ import fr.oni.cookbook.model.Recipe;
 public class DeleteRecipeConfirmDialogFragment extends DialogFragment {
 
     @Override
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         final Data data = (Data) getActivity().getApplicationContext();

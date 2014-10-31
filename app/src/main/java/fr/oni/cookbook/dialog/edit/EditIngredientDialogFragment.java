@@ -1,9 +1,11 @@
 package fr.oni.cookbook.dialog.edit;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +18,18 @@ import fr.oni.cookbook.model.Recipe;
 
 public class EditIngredientDialogFragment extends DialogFragment {
 
-    private Data data;
     private EditText editText;
     private int positionIngredient;
     private EditDialogListener listener;
 
-
     @Override
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        data = (Data) getActivity().getApplicationContext();
+        Data data = (Data) getActivity().getApplicationContext();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View v = inflater.inflate(R.layout.edit_ingredient_dialog_layout, null);
+        @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.edit_ingredient_dialog_layout, null);
         final int position = data.getPosition();
         final Recipe recipe = data.getRecipes().get(position);
 
