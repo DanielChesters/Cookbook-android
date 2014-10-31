@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/edit_title_field"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_height"
         android:layout_alignLeft="@+id/edit_description_field"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignStart="@+id/edit_description_field"
         android:hint="@string/edit_title"
         android:inputType="text"
-        android:padding="10dp" />
+        android:padding="8dp" />
 
     <EditText
         android:id="@+id/edit_description_field"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/description_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -29,6 +28,6 @@
         android:inputType="textMultiLine"
         android:lines="5"
         android:maxLines="10"
-        android:padding="10dp" />
+        android:padding="8dp" />
 
 </RelativeLayout>

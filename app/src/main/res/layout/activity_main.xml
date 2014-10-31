@@ -11,15 +11,15 @@
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/title_app_height"
         android:text="@string/welcome" />
 
     <ListView
         android:id="@+id/listRecipes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Title">
-
-    </ListView>
+        android:layout_below="@id/Title"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
 </RelativeLayout>
