@@ -4,18 +4,18 @@
 
     <item
         android:id="@+id/action_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_share_black_36dp"
         android:title="@string/action_share"
         cookbook:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         cookbook:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_edit"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_edit_black_36dp"
         android:title="@string/action_edit_recipe"
         cookbook:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_delete"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_delete_black_36dp"
         android:title="@string/action_delete_recipe"
         cookbook:showAsAction="ifRoom" />
 

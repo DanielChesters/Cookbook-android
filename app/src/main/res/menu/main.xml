@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/action_save_recipes"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/ic_save_black_36dp"
         android:title="@string/action_save_recipes"
         cookbook:showAsAction="ifRoom" />
 </menu>
