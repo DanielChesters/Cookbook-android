@@ -13,6 +13,8 @@
         android:layout_alignRight="@+id/view_description"
         android:gravity="center_vertical"
         android:padding="8dp"
+        android:textSize="14sp"
+        android:fontFamily="Medium"
         android:text="@string/edit_title" />
 
     <TextView
@@ -24,7 +26,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignStart="@+id/view_description_field"
         android:gravity="center_vertical"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:textSize="14sp"
+        android:fontFamily="Medium" />
 
     <TextView
         android:id="@+id/view_description"
@@ -35,6 +39,8 @@
         android:layout_below="@id/view_title"
         android:gravity="center_vertical"
         android:padding="8dp"
+        android:textSize="14sp"
+        android:fontFamily="Medium"
         android:text="@string/edit_description" />
 
     <TextView
@@ -48,6 +54,8 @@
         android:layout_toRightOf="@id/view_description"
         android:lines="5"
         android:gravity="center_vertical"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:textSize="14sp"
+        android:fontFamily="Regular" />
 
 </RelativeLayout>

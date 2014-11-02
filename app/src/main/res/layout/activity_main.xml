@@ -12,7 +12,9 @@
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_app_height"
-        android:text="@string/welcome" />
+        android:text="@string/welcome"
+        android:textSize="20sp"
+        android:fontFamily="Medium"/>
 
     <ListView
         android:id="@+id/listRecipes"

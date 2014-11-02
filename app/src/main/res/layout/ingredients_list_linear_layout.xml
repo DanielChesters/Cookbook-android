@@ -8,6 +8,8 @@
         android:id="@+id/ingredient_text"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/title_height"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textSize="14sp"
+        android:fontFamily="Regular" />
 
 </LinearLayout>
