@@ -70,5 +70,7 @@
     <string name="abc_shareactionprovider_share_with_application">Partager avec %s</string>
     <!-- Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
     <string name="abc_shareactionprovider_share_with">Partager avec</string>
+    <string name="action_export_recipes">Exporter les recettes</string>
+    <string name="action_import_recipes">Importer les recettes</string>
 
 </resources>

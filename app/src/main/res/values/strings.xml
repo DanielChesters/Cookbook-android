@@ -6,6 +6,8 @@
     <string name="action_new_recipe">New Recipe</string>
     <string name="action_save_recipe">Save</string>
     <string name="action_save_recipes">Save Recipes</string>
+    <string name="action_export_recipes">Export Recipes</string>
+    <string name="action_import_recipes">Import Recipes</string>
     <string name="action_save_recipes_confirm">Recipes saved!</string>
     <string name="action_edit_recipe">Edit</string>
     <string name="action_delete_recipe">Delete</string>

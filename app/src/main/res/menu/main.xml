@@ -6,4 +6,16 @@
         android:icon="@drawable/ic_save_black_36dp"
         android:title="@string/action_save_recipes"
         cookbook:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_export_recipes"
+        android:icon="@drawable/ic_file_upload_black_36dp"
+        android:title="@string/action_export_recipes"
+        cookbook:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_import_recipes"
+        android:icon="@drawable/ic_file_download_black_36dp"
+        android:title="@string/action_import_recipes"
+        cookbook:showAsAction="ifRoom" />
 </menu>

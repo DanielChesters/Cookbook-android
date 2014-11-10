@@ -2,8 +2,10 @@ package fr.oni.cookbook.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -19,10 +21,13 @@ import com.google.gson.reflect.TypeToken;
 import com.shamanland.fab.ShowHideOnScroll;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
@@ -42,6 +47,8 @@ public class MainActivity extends ActionBarActivity {
 
     private static final int EDIT_RECIPE_REQUEST = 1;
     private static final int VIEW_RECIPE_REQUEST = 2;
+    private static final int EXPORT_RECIPES_REQUEST = 3;
+    private static final int IMPORT_RECIPES_REQUEST = 4;
     private Data data;
     private MainRecipeAdapter recipeAdapter;
 
@@ -63,7 +70,15 @@ public class MainActivity extends ActionBarActivity {
         recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
         if (data.getRecipes().isEmpty()) {
-            new ReadTask().execute();
+            InputStream inputStream = null;
+            try {
+                inputStream = openFileInput(StringConstant.DATA_FILE);
+            } catch (FileNotFoundException e) {
+                inputStream = getResources().openRawResource(R.raw.sample);
+            }
+            if (inputStream != null) {
+                new ReadTask().execute(inputStream);
+            }
         }
 
         listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,34 +100,6 @@ public class MainActivity extends ActionBarActivity {
         listRecipes.setOnTouchListener(new ShowHideOnScroll(fab));
     }
 
-    private List<Recipe> getSamplesRecipes() {
-        final List<Recipe> recipes = new ArrayList<>();
-        Recipe recipe = new Recipe("Long Test");
-        recipe.setDescription("This is a description");
-
-        for (int i = 0; i < 10; i++) {
-            recipe.getIngredients().add(new Ingredient("Ingredient " + i));
-        }
-
-        recipe
-                .getSteps()
-                .add(
-                        new Step(
-                                "Tm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7\nTm1UMPhx0C\nLV5Cp15lER\ncXL3jyctqQ\nsr47tfwuk8\nteh1xGcS8U\nbRuoKzzvpm\n2RjYILdrAY\ncgeD7Syst2\nS4j4OgRpZ8\n5ih2MMVtQ7"));
-
-        for (int i = 0; i < 10; i++) {
-            recipe.getSteps().add(new Step("Step " + i));
-        }
-
-        recipes.add(recipe);
-
-        for (int i = 0; i < 10; i++) {
-            recipes.add(new Recipe("Test " + +i));
-        }
-
-        return recipes;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -127,16 +114,45 @@ public class MainActivity extends ActionBarActivity {
                 saveRecipes();
                 return true;
 
+            case R.id.action_export_recipes:
+                openExportRecipes();
+                return true;
+
+            case R.id.action_import_recipes:
+                openImportRecipes();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    private void openImportRecipes() {
+        Intent importIntent = new Intent();
+        importIntent.setType("application/json");
+        importIntent.setAction(Intent.ACTION_GET_CONTENT);
+        importIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(importIntent, "Test"), IMPORT_RECIPES_REQUEST);
+    }
+
+    private void openExportRecipes() {
+        Intent exportIntent = new Intent();
+        exportIntent.setType("application/json");
+        exportIntent.setAction(Intent.ACTION_CREATE_DOCUMENT);
+        exportIntent.addCategory(Intent.CATEGORY_OPENABLE);
+        exportIntent.putExtra(Intent.EXTRA_TITLE, "export.json");
+        startActivityForResult(Intent.createChooser(exportIntent, "Test"), EXPORT_RECIPES_REQUEST);
+    }
+
     private void saveRecipes() {
-        new SaveTask().execute();
-        Toast
-                .makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG)
-                .show();
+        try {
+            FileOutputStream outputStream = openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE);
+            new SaveTask().execute(outputStream);
+            Toast.makeText(getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+        }
+
     }
 
     private void addRecipe() {
@@ -151,8 +167,48 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
-            recipeAdapter.notifyDataSetChanged();
-            writeToFile(dataToString());
+            switch (requestCode) {
+                case IMPORT_RECIPES_REQUEST:
+                    Uri jsonImportFileUri = intent.getData();
+                    Log.d("onActivityResult", "Uri: " + jsonImportFileUri.toString());
+                    importData(jsonImportFileUri);
+                    break;
+                case EXPORT_RECIPES_REQUEST:
+                    Uri jsonExportFileUri = intent.getData();
+                    exportData(jsonExportFileUri);
+                    break;
+                default:
+                    recipeAdapter.notifyDataSetChanged();
+                    try {
+                        FileOutputStream outputStream = openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE);
+                        new SaveTask().execute(outputStream);
+                    } catch (IOException e) {
+                        Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+                    }
+
+                    break;
+            }
+
+        }
+    }
+
+    private void importData(Uri jsonImportFileUri) {
+        try {
+            ParcelFileDescriptor importFileDescriptor = getBaseContext().getContentResolver().openFileDescriptor(jsonImportFileUri, "r");
+            FileInputStream inputStream = new FileInputStream(importFileDescriptor.getFileDescriptor());
+            new ReadTask().execute(inputStream);
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_IMPORT, StringConstant.FILE_READ_ERROR + e.toString(), e);
+        }
+    }
+
+    private void exportData(Uri jsonExportFileUri) {
+        try {
+            ParcelFileDescriptor exportFileDescriptor = getBaseContext().getContentResolver().openFileDescriptor(jsonExportFileUri, "rwt");
+            FileOutputStream exportFileOutputStream = new FileOutputStream(exportFileDescriptor.getFileDescriptor());
+            new SaveTask().execute(exportFileOutputStream);
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_EXPORT, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
         }
     }
 
@@ -167,28 +223,28 @@ public class MainActivity extends ActionBarActivity {
             // Nothing
         }.getType();
         List<Recipe> recipes = gson.fromJson(json, collectionType);
-        data.getRecipes().addAll(recipes);
+        if (recipes != null && !recipes.isEmpty()) {
+            data.getRecipes().clear();
+            data.getRecipes().addAll(recipes);
+        }
     }
 
-    private void writeToFile(String data) {
+    private void writeToFile(OutputStream outputStream, String data) {
         try {
-            OutputStreamWriter outputStreamWriter =
-                    new OutputStreamWriter(openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE),
-                            Charset.defaultCharset());
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
             outputStreamWriter.write(data);
             outputStreamWriter.close();
+            outputStream.close();
         } catch (IOException e) {
             Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
         }
     }
 
-    private String readFromFile() {
+    private String readFromFile(InputStream inputStream) {
 
         String ret = "";
 
         try {
-            InputStream inputStream = openFileInput(StringConstant.DATA_FILE);
-
             if (inputStream != null) {
                 InputStreamReader inputStreamReader =
                         new InputStreamReader(inputStream, Charset.defaultCharset());
@@ -200,9 +256,9 @@ public class MainActivity extends ActionBarActivity {
                     stringBuilder.append(receiveString);
                 }
 
-                inputStream.close();
-                inputStreamReader.close();
                 bufferedReader.close();
+                inputStreamReader.close();
+                inputStream.close();
                 ret = stringBuilder.toString();
             }
         } catch (FileNotFoundException e) {
@@ -214,33 +270,26 @@ public class MainActivity extends ActionBarActivity {
         return ret;
     }
 
-    private class ReadTask extends AsyncTask<Void, Void, String> {
+    private class ReadTask extends AsyncTask<InputStream, Void, String> {
 
         @Override
-        protected String doInBackground(Void... params) {
-            return readFromFile();
+        protected String doInBackground(InputStream... params) {
+            return readFromFile(params[0]);
         }
 
         @Override
         protected void onPostExecute(String json) {
-            data.getRecipes().clear();
-
-            if (json.isEmpty()) {
-                data.getRecipes().addAll(getSamplesRecipes());
-            } else {
-                stringToData(json);
-            }
-
+            stringToData(json);
             recipeAdapter.notifyDataSetChanged();
         }
 
     }
 
-    private class SaveTask extends AsyncTask<Void, Void, Void> {
+    private class SaveTask extends AsyncTask<OutputStream, Void, Void> {
 
         @Override
-        protected Void doInBackground(Void... params) {
-            writeToFile(dataToString());
+        protected Void doInBackground(OutputStream... params) {
+            writeToFile(params[0], dataToString());
             return null;
         }
 
