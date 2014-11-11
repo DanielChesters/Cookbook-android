@@ -31,7 +31,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.oni.cookbook.BuildConfig;
@@ -39,9 +38,7 @@ import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.adapter.MainRecipeAdapter;
 import fr.oni.cookbook.model.Data;
-import fr.oni.cookbook.model.Ingredient;
 import fr.oni.cookbook.model.Recipe;
-import fr.oni.cookbook.model.Step;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -70,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
         recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
 
         if (data.getRecipes().isEmpty()) {
-            InputStream inputStream = null;
+            InputStream inputStream;
             try {
                 inputStream = openFileInput(StringConstant.DATA_FILE);
             } catch (FileNotFoundException e) {
