@@ -29,3 +29,5 @@
 
 # Application classes that will be serialized/deserialized over Gson
 -keep class fr.oni.cookbook.model.** { *; }
+
+-keep class android.support.v7.widget.** { *; }
