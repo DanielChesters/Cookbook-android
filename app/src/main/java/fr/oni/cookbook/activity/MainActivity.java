@@ -20,13 +20,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shamanland.fab.ShowHideOnScroll;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
@@ -243,20 +241,11 @@ public class MainActivity extends ActionBarActivity {
 
         try {
             if (inputStream != null) {
-                InputStreamReader inputStreamReader =
-                        new InputStreamReader(inputStream, Charset.defaultCharset());
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                bufferedReader.close();
-                inputStreamReader.close();
+                int sizeFile = inputStream.available();
+                byte[] buffer = new byte[sizeFile];
+                inputStream.read(buffer);
                 inputStream.close();
-                ret = stringBuilder.toString();
+                ret = new String(buffer, Charset.defaultCharset());
             }
         } catch (FileNotFoundException e) {
             Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
