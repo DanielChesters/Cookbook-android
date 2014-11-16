@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
 
     private void openImportRecipes() {
         Intent importIntent = new Intent();
-        importIntent.setType("application/json");
+        importIntent.setType("*/*");
         importIntent.setAction(Intent.ACTION_GET_CONTENT);
         importIntent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(Intent.createChooser(importIntent, getString(R.string.import_chooser)), IMPORT_RECIPES_REQUEST);
@@ -136,7 +135,6 @@ public class MainActivity extends ActionBarActivity {
             switch (requestCode) {
                 case IMPORT_RECIPES_REQUEST:
                     Uri jsonImportFileUri = intent.getData();
-                    Log.d("onActivityResult", "Uri: " + jsonImportFileUri.toString());
                     importData(jsonImportFileUri);
                     break;
                 case EXPORT_RECIPES_REQUEST:

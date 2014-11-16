@@ -9,8 +9,14 @@
     <string name="action_export_recipes">Export Recipes</string>
     <string name="action_import_recipes">Import Recipes</string>
     <string name="action_save_recipes_confirm">Recipes saved!</string>
+    <string name="action_save_recipes_error">Error on write recipes</string>
     <string name="action_import_recipes_confirm">Recipes imported!</string>
+    <string name="file_not_found">File not found ((╯°□°）╯︵ ┻━┻)!</string>
+    <string name="error_read">Error on read recipes</string>
+    <string name="error_write">Error on write recipes</string>
+    <string name="action_import_recipes_error">Error on import</string>
     <string name="action_export_recipes_confirm">Recipes exported!</string>
+    <string name="action_export_recipes_error">Error on export!</string>
     <string name="action_edit_recipe">Edit</string>
     <string name="action_delete_recipe">Delete</string>
     <string name="action_add_ingredient">Add ingredient</string>

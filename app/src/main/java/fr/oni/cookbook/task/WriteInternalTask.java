@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
@@ -34,7 +35,11 @@ public class WriteInternalTask extends AsyncTask<Void, Void, Void> {
             FileOutputStream outputStream = activity.openFileOutput(StringConstant.DATA_FILE, Context.MODE_PRIVATE);
             TaskUtility.writeToFile(outputStream, data);
         } catch (FileNotFoundException e) {
-            Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+            Log.e(StringConstant.TAG_DATA_EXPORT, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+            Toast.makeText(activity.getApplicationContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            Log.e(StringConstant.TAG_DATA_EXPORT, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+            Toast.makeText(activity.getApplicationContext(), R.string.error_write, Toast.LENGTH_LONG).show();
         }
         return null;
     }

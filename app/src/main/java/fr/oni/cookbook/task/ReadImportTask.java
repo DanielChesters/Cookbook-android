@@ -37,10 +37,13 @@ public class ReadImportTask extends AsyncTask<Uri, Void, String> {
             inputStream = new FileInputStream(importFileDescriptor.getFileDescriptor());
             json = TaskUtility.readFromFile(inputStream);
             inputStream.close();
+            importFileDescriptor.close();
         } catch (FileNotFoundException e) {
-            Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
+            Log.e(StringConstant.TAG_DATA_IMPORT, StringConstant.FILE_READ_NOT_FOUND + e.toString(), e);
+            Toast.makeText(activity.getApplicationContext(), R.string.file_not_found, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
-            Log.e(StringConstant.TAG_DATA_READ, StringConstant.FILE_READ_ERROR + e.toString(), e);
+            Log.e(StringConstant.TAG_DATA_IMPORT, StringConstant.FILE_READ_ERROR + e.toString(), e);
+            Toast.makeText(activity.getApplicationContext(), R.string.action_import_recipes_error, Toast.LENGTH_LONG).show();
         }
         return json;
     }
@@ -48,7 +51,7 @@ public class ReadImportTask extends AsyncTask<Uri, Void, String> {
     @Override
     protected void onPostExecute(String json) {
         TaskUtility.readJsonAndUpdateData(json, data, recipeAdapter);
-        Toast.makeText(activity.getApplicationContext(), R.string.action_import_recipes_confirm, Toast.LENGTH_LONG).show();
         new WriteInternalTask(activity, data, false).execute();
+        Toast.makeText(activity.getApplicationContext(), R.string.action_import_recipes_confirm, Toast.LENGTH_LONG).show();
     }
 }

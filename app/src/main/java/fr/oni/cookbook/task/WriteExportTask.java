@@ -7,14 +7,13 @@ import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Data;
 
-public class WriteExportTask extends AsyncTask<Uri, Void, Void>{
+public class WriteExportTask extends AsyncTask<Uri, Void, Void> {
     private Activity activity;
     private Data data;
 
@@ -34,8 +33,11 @@ public class WriteExportTask extends AsyncTask<Uri, Void, Void>{
             ParcelFileDescriptor exportFileDescriptor = activity.getBaseContext().getContentResolver().openFileDescriptor(params[0], "rwt");
             FileOutputStream exportFileOutputStream = new FileOutputStream(exportFileDescriptor.getFileDescriptor());
             TaskUtility.writeToFile(exportFileOutputStream, data);
-        } catch (FileNotFoundException e) {
+            exportFileOutputStream.close();
+            exportFileDescriptor.close();
+        } catch (java.io.IOException e) {
             Log.e(StringConstant.TAG_DATA_WRITE, StringConstant.FILE_WRITE_ERROR + e.toString(), e);
+            Toast.makeText(activity.getApplicationContext(), R.string.action_export_recipes_error, Toast.LENGTH_LONG).show();
         }
         return null;
     }
