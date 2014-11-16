@@ -80,7 +80,7 @@
     <string name="action_import_recipes_error">Erreur lors de l\'import</string>
     <string name="action_save_recipes_error">Erreur lors de l\'écriture</string>
     <string name="error_read">Erreur lors de la lecture</string>
-    <string name="error_write">Error lors de l\'écriture</string>
+    <string name="error_write">Erreur lors de l\'écriture</string>
     <string name="file_not_found">Fichier non trouvé ((╯°□°）╯︵ ┻━┻)!</string>
 
 </resources>
