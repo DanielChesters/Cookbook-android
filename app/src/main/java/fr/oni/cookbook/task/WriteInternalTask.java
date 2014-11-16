@@ -16,10 +16,16 @@ import fr.oni.cookbook.model.Data;
 public class WriteInternalTask extends AsyncTask<Void, Void, Void> {
     Activity activity;
     Data data;
+    boolean doToast;
 
     public WriteInternalTask(Activity activity, Data data) {
+        this(activity, data, true);
+    }
+
+    public WriteInternalTask(Activity activity, Data data, boolean doToast) {
         this.activity = activity;
         this.data = data;
+        this.doToast = doToast;
     }
 
     @Override
@@ -35,6 +41,8 @@ public class WriteInternalTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Toast.makeText(activity.getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
+        if (doToast) {
+            Toast.makeText(activity.getApplicationContext(), R.string.action_save_recipes_confirm, Toast.LENGTH_LONG).show();
+        }
     }
 }

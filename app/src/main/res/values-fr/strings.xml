@@ -74,5 +74,7 @@
     <string name="action_import_recipes">Importer les recettes</string>
     <string name="export_chooser">Choisissez où exporter les recettes</string>
     <string name="import_chooser">Choisissez le fichier à importer</string>
+    <string name="action_export_recipes_confirm">Recettes exportées!</string>
+    <string name="action_import_recipes_confirm">Recettes importées!</string>
 
 </resources>

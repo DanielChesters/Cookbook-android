@@ -9,6 +9,8 @@
     <string name="action_export_recipes">Export Recipes</string>
     <string name="action_import_recipes">Import Recipes</string>
     <string name="action_save_recipes_confirm">Recipes saved!</string>
+    <string name="action_import_recipes_confirm">Recipes imported!</string>
+    <string name="action_export_recipes_confirm">Recipes exported!</string>
     <string name="action_edit_recipe">Edit</string>
     <string name="action_delete_recipe">Delete</string>
     <string name="action_add_ingredient">Add ingredient</string>

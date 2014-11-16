@@ -5,16 +5,23 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import fr.oni.cookbook.R;
 import fr.oni.cookbook.StringConstant;
 import fr.oni.cookbook.model.Data;
 
 public class WriteExportTask extends AsyncTask<Uri, Void, Void>{
     private Activity activity;
     private Data data;
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        Toast.makeText(activity.getApplicationContext(), R.string.action_export_recipes_confirm, Toast.LENGTH_LONG).show();
+    }
 
     public WriteExportTask(Activity activity, Data data) {
         this.activity = activity;
