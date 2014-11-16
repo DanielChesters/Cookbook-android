@@ -72,5 +72,7 @@
     <string name="abc_shareactionprovider_share_with">Partager avec</string>
     <string name="action_export_recipes">Exporter les recettes</string>
     <string name="action_import_recipes">Importer les recettes</string>
+    <string name="export_chooser">Choisissez où exporter les recettes</string>
+    <string name="import_chooser">Choisissez le fichier à importer</string>
 
 </resources>

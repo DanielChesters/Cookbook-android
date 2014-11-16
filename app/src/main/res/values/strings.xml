@@ -43,4 +43,6 @@
     <string name="new_ingredient">New Ingredient</string>
     <string name="new_step">New Step</string>
 
+    <string name="import_chooser">Choose file to import</string>
+    <string name="export_chooser">Choose file to export recipes</string>
 </resources>
