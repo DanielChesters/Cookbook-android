@@ -13,9 +13,8 @@
         android:layout_alignRight="@+id/view_description"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:textSize="14sp"
-        android:fontFamily="Medium"
-        android:text="@string/edit_title" />
+        android:text="@string/edit_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
         android:id="@+id/view_title_field"
@@ -27,8 +26,7 @@
         android:layout_alignStart="@+id/view_description_field"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:textSize="14sp"
-        android:fontFamily="Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <TextView
         android:id="@+id/view_description"
@@ -39,9 +37,8 @@
         android:layout_below="@id/view_title"
         android:gravity="center_vertical"
         android:padding="8dp"
-        android:textSize="14sp"
-        android:fontFamily="Medium"
-        android:text="@string/edit_description" />
+        android:text="@string/edit_description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/view_description_field"
@@ -52,10 +49,9 @@
         android:layout_below="@id/view_title"
         android:layout_toEndOf="@id/view_description"
         android:layout_toRightOf="@id/view_description"
-        android:lines="5"
         android:gravity="center_vertical"
+        android:lines="5"
         android:padding="8dp"
-        android:textSize="14sp"
-        android:fontFamily="Regular" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </RelativeLayout>

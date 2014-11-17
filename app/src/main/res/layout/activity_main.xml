@@ -13,8 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_app_height"
         android:text="@string/welcome"
-        android:textSize="20sp"
-        android:fontFamily="Medium"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <ListView
         android:id="@+id/listRecipes"
@@ -29,11 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:src="?attr/icActionAdd" />
 
 </RelativeLayout>
