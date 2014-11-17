@@ -5,8 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -45,21 +49,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         data = (Data) getApplicationContext();
 
-        final ListView listRecipes = (ListView) findViewById(R.id.listRecipes);
+        final RecyclerView listRecipes = (RecyclerView) findViewById(R.id.listRecipes);
 
-        recipeAdapter = new MainRecipeAdapter(this, data.getRecipes());
+        listRecipes.setLayoutManager(new LinearLayoutManager(this));
+        listRecipes.setItemAnimator(new DefaultItemAnimator());
+        recipeAdapter = new MainRecipeAdapter(data.getRecipes());
 
         if (data.getRecipes().isEmpty()) {
             new ReadInternalTask(recipeAdapter, data, this).execute();
         }
-
-        listRecipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapterView, View view, int id, long itemID) {
-                Intent intent = new Intent(getApplicationContext(), RecipeViewActivity.class);
-                data.setPosition(id);
-                startActivityForResult(intent, VIEW_RECIPE_REQUEST);
-            }
-        });
 
         listRecipes.setAdapter(recipeAdapter);
         View fab = findViewById(R.id.fabListRecipes);
