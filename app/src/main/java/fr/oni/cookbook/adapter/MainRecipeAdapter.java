@@ -3,7 +3,6 @@ package fr.oni.cookbook.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,7 @@ public class MainRecipeAdapter extends RecyclerView.Adapter<MainRecipeAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         TextView tvTitle = (TextView) LayoutInflater.from(context).inflate(R.layout.recipe_list_linear_layout, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(context, tvTitle);
-        return viewHolder;
+        return new ViewHolder(context, tvTitle);
     }
 
     @Override

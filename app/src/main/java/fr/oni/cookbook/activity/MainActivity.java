@@ -10,10 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.shamanland.fab.ShowHideOnScroll;
 
@@ -30,7 +27,6 @@ import fr.oni.cookbook.task.WriteInternalTask;
 public class MainActivity extends ActionBarActivity {
 
     private static final int EDIT_RECIPE_REQUEST = 1;
-    private static final int VIEW_RECIPE_REQUEST = 2;
     private static final int EXPORT_RECIPES_REQUEST = 3;
     private static final int IMPORT_RECIPES_REQUEST = 4;
     private Data data;
